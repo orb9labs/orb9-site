@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NutriMind · MIND: CPANEM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+<style>
+:root {
+  --teal:       #1A9A7A;
+  --teal-d:     #0F6B55;
+  --teal-l:     #E8F5F0;
+  --teal-m:     #A8DCCF;
+  --violet:     #6C3CE0;
+  --violet-l:   #F0EBFC;
+  --violet-m:   #C4AFF5;
+  --night:      #0F1824;
+  --carbon:     #1A1D23;
+  --slate:      #6B7280;
+  --gray:       #9CA3AF;
+  --silver:     #E2E5EB;
+  --off:        #F4F7FA;
+  --white:      #FFFFFF;
+  --amber:      #D97706;
+  --amber-l:    #FEF3C7;
+  --red:        #DC2626;
+  --red-l:      #FEE2E2;
+  --sage:       #16A34A;
+  --sage-l:     #DCFCE7;
+  --sidebar-bg: linear-gradient(180deg,#d4ede6 0%,#e8e4f8 100%);
+  --sidebar-w:  68px;
+  --sidebar-exp:242px;
+  --radius:     12px;
+  --radius-lg:  20px;
+  --shadow:     0 2px 12px rgba(15,24,36,.07);
+  --shadow-lg:  0 8px 32px rgba(15,24,36,.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--off);color:var(--carbon);font-size:14px;overflow:hidden}
+
+/* ── LOGIN ── */
+#login-screen{position:fixed;inset:0;background:var(--white);display:flex;align-items:center;justify-content:center;z-index:1000;flex-direction:column;gap:0}
+.login-wrap{width:100%;max-width:440px;padding:40px 48px 48px;animation:fadeUp .5s ease}
+.login-logo{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:36px}
+.login-logo-mark{width:52px;height:52px;background:var(--teal);border-radius:14px;display:flex;align-items:center;justify-content:center}
+.login-logo-mark svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.login-wordmark{font-size:26px;font-weight:800;color:var(--night);letter-spacing:-0.5px}
+.login-sub{font-size:12px;font-weight:600;color:var(--teal);letter-spacing:2px;text-transform:uppercase}
+.login-title{font-size:22px;font-weight:700;color:var(--carbon);margin-bottom:6px}
+.login-desc{font-size:13px;color:var(--slate);margin-bottom:28px;line-height:1.6}
+.role-tabs{display:flex;background:var(--off);border-radius:10px;padding:4px;gap:4px;margin-bottom:24px}
+.role-tab{flex:1;padding:9px 0;border:none;background:transparent;border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .2s}
+.role-tab.active{background:var(--white);color:var(--teal);box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.login-field{margin-bottom:16px}
+.login-field label{display:block;font-size:12px;font-weight:700;color:var(--carbon);margin-bottom:6px;letter-spacing:.3px}
+.login-field input{width:100%;padding:12px 14px;border:1.5px solid var(--silver);border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:14px;color:var(--carbon);background:var(--white);outline:none;transition:border .2s}
+.login-field input:focus{border-color:var(--teal)}
+.email-hint{font-size:11px;color:var(--gray);margin-top:4px;font-family:'Fira Code',monospace}
+.login-btn{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}
+.login-btn:hover{background:var(--teal-d)}
+
+/* ── SHELL ── */
+#app{display:none;height:100vh;overflow:hidden}
+#app.visible{display:flex}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar-w);background:var(--sidebar-bg);display:flex;flex-direction:column;height:100vh;transition:width .25s cubic-bezier(.4,0,.2,1);overflow:hidden;flex-shrink:0;border-right:1px solid rgba(255,255,255,.6);position:relative;z-index:10}
+.sidebar:hover,.sidebar.pinned{width:var(--sidebar-exp)}
+.sidebar-logo{padding:20px 16px 16px;display:flex;align-items:center;gap:10px;min-height:72px;border-bottom:1px solid rgba(255,255,255,.5)}
+.sb-logo-mark{width:36px;height:36px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-logo-mark svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sb-logo-text{overflow:hidden;white-space:nowrap;opacity:0;transition:opacity .15s .05s}
+.sidebar:hover .sb-logo-text,.sidebar.pinned .sb-logo-text{opacity:1}
+.sb-wordmark{font-size:16px;font-weight:800;color:var(--night);letter-spacing:-.3px;line-height:1.1}
+.sb-instance{font-size:10px;font-weight:700;color:var(--violet);letter-spacing:1.5px;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:12px 8px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.sb-section-label{font-size:10px;font-weight:700;color:var(--slate);letter-spacing:1.2px;text-transform:uppercase;padding:10px 8px 4px;white-space:nowrap;overflow:hidden;opacity:0;transition:opacity .15s}
+.sidebar:hover .sb-section-label,.sidebar.pinned .sb-section-label{opacity:1}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;overflow:hidden;color:var(--carbon);text-decoration:none;min-height:40px;position:relative}
+.sb-item:hover{background:rgba(255,255,255,.6)}
+.sb-item.active{background:var(--white);color:var(--teal);box-shadow:0 1px 6px rgba(26,154,122,.12)}
+.sb-item.active .sb-icon{color:var(--teal)}
+.sb-icon{font-size:20px;flex-shrink:0;width:22px;text-align:center;color:var(--slate);transition:color .15s}
+.sb-item:hover .sb-icon{color:var(--teal)}
+.sb-label{font-size:13px;font-weight:600;overflow:hidden;white-space:nowrap;opacity:0;transition:opacity .15s .05s}
+.sidebar:hover .sb-label,.sidebar.pinned .sb-label{opacity:1}
+.sb-badge{background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:auto;flex-shrink:0;opacity:0;transition:opacity .15s}
+.sidebar:hover .sb-badge,.sidebar.pinned .sb-badge{opacity:1}
+.sidebar-footer{padding:12px 8px;border-top:1px solid rgba(255,255,255,.5)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer}
+.sb-avatar{width:32px;height:32px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
+.sb-user-info{overflow:hidden;white-space:nowrap;opacity:0;transition:opacity .15s}
+.sidebar:hover .sb-user-info,.sidebar.pinned .sb-user-info{opacity:1}
+.sb-user-name{font-size:13px;font-weight:700;color:var(--carbon)}
+.sb-user-role{font-size:11px;color:var(--slate)}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:56px;background:var(--white);border-bottom:1px solid var(--silver);display:flex;align-items:center;gap:12px;padding:0 24px;flex-shrink:0}
+.topbar-title{font-size:17px;font-weight:800;color:var(--carbon);flex:1}
+.topbar-search{display:flex;align-items:center;gap:8px;background:var(--off);border:1px solid var(--silver);border-radius:10px;padding:7px 12px;width:260px}
+.topbar-search input{border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:13px;color:var(--carbon);outline:none;width:100%}
+.topbar-search input::placeholder{color:var(--gray)}
+.topbar-icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--off);border:1px solid var(--silver);cursor:pointer;color:var(--slate);font-size:18px;transition:background .15s}
+.topbar-icon-btn:hover{background:var(--teal-l);color:var(--teal)}
+.topbar-profile{width:34px;height:34px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;cursor:pointer}
+.role-indicator{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
+.role-admin{background:var(--teal-l);color:var(--teal)}
+.role-prof{background:var(--violet-l);color:var(--violet)}
+
+/* ── CONTENT ── */
+.content-area{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px}
+.page{display:none;flex-direction:column;gap:20px}
+.page.active{display:flex}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:14px;font-weight:700;color:var(--carbon)}
+.card-action{font-size:12px;font-weight:600;color:var(--teal);cursor:pointer;text-decoration:none}
+
+/* ── METRIC CARDS ── */
+.metrics-row{display:grid;gap:16px}
+.metrics-row.cols-4{grid-template-columns:repeat(4,1fr)}
+.metrics-row.cols-3{grid-template-columns:repeat(3,1fr)}
+.metrics-row.cols-5{grid-template-columns:repeat(5,1fr)}
+.metric-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.metric-label{font-size:12px;font-weight:600;color:var(--slate);display:flex;align-items:center;gap:6px}
+.metric-label i{font-size:15px}
+.metric-value{font-size:26px;font-weight:800;color:var(--carbon);font-family:'Nunito',sans-serif;line-height:1}
+.metric-sub{font-size:11px;color:var(--gray)}
+.metric-delta{font-size:12px;font-weight:700;padding:2px 8px;border-radius:20px}
+.delta-up{background:var(--sage-l);color:var(--sage)}
+.delta-down{background:var(--red-l);color:var(--red)}
+.delta-neutral{background:var(--off);color:var(--slate)}
+
+/* ── BADGE / TAG ── */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+.badge-teal{background:var(--teal-l);color:var(--teal)}
+.badge-violet{background:var(--violet-l);color:var(--violet)}
+.badge-amber{background:var(--amber-l);color:var(--amber)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-sage{background:var(--sage-l);color:var(--sage)}
+.badge-gray{background:var(--off);color:var(--slate)}
+
+/* ── TABLE ── */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--silver)}
+.data-table td{padding:12px 14px;border-bottom:1px solid var(--off);font-size:13px;color:var(--carbon);vertical-align:middle}
+.data-table tr:hover td{background:var(--off)}
+.data-table tr:last-child td{border-bottom:none}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .15s;text-decoration:none}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-d)}
+.btn-secondary{background:var(--off);color:var(--carbon);border:1px solid var(--silver)}
+.btn-secondary:hover{background:var(--silver)}
+.btn-violet{background:var(--violet);color:#fff}
+.btn-violet:hover{background:#5a30c0}
+.btn-ghost{background:transparent;color:var(--teal);padding:7px 10px}
+.btn-ghost:hover{background:var(--teal-l)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
+.btn-icon{width:34px;height:34px;padding:0;justify-content:center;border-radius:9px}
+
+/* ── FORM ── */
+.form-grid{display:grid;gap:14px}
+.form-grid.cols-2{grid-template-columns:1fr 1fr}
+.form-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+.field-label{font-size:12px;font-weight:700;color:var(--carbon);margin-bottom:5px;display:block}
+.field-input,.field-select,.field-textarea{width:100%;padding:9px 12px;border:1.5px solid var(--silver);border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--carbon);background:var(--white);outline:none;transition:border .15s}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--teal)}
+.field-textarea{resize:vertical;min-height:80px}
+.form-field{display:flex;flex-direction:column}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.section-title{font-size:18px;font-weight:800;color:var(--carbon)}
+.section-sub{font-size:13px;color:var(--slate)}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{height:6px;background:var(--silver);border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;border-radius:10px;background:var(--teal)}
+
+/* ── ADOPTION RING ── */
+.adoption-ring{position:relative;width:44px;height:44px}
+.adoption-ring svg{transform:rotate(-90deg)}
+.adoption-ring .ring-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--teal)}
+
+/* ── AVATAR ── */
+.avatar{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.av-teal{background:var(--teal)}
+.av-violet{background:var(--violet)}
+.av-amber{background:var(--amber)}
+.av-slate{background:var(--slate)}
+
+/* ── CHAT ── */
+.chat-wrap{display:flex;height:calc(100vh - 120px);gap:0;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+.chat-list{width:260px;border-right:1px solid var(--silver);display:flex;flex-direction:column}
+.chat-list-header{padding:16px;border-bottom:1px solid var(--silver);font-size:14px;font-weight:700}
+.chat-item{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--off);transition:background .15s}
+.chat-item:hover,.chat-item.active{background:var(--off)}
+.chat-item-info{flex:1;min-width:0}
+.chat-item-name{font-size:13px;font-weight:700;color:var(--carbon);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-item-preview{font-size:11px;color:var(--gray);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-main{flex:1;display:flex;flex-direction:column}
+.chat-header{padding:14px 18px;border-bottom:1px solid var(--silver);display:flex;align-items:center;gap:10px}
+.chat-messages{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:65%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6}
+.chat-msg.incoming{background:var(--off);color:var(--carbon);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg.outgoing{background:var(--teal);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-msg-time{font-size:10px;opacity:.6;margin-top:4px}
+.chat-input-row{padding:14px 18px;border-top:1px solid var(--silver);display:flex;gap:10px;align-items:center}
+.chat-input{flex:1;padding:10px 14px;border:1.5px solid var(--silver);border-radius:24px;font-family:'Nunito',sans-serif;font-size:13px;outline:none;transition:border .15s}
+.chat-input:focus{border-color:var(--teal)}
+
+/* ── CALENDAR GRID ── */
+.cal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--silver);border-radius:var(--radius);overflow:hidden}
+.cal-day-header{background:var(--off);padding:10px;text-align:center;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--silver)}
+.cal-day{border-right:1px solid var(--silver);min-height:140px;padding:8px;display:flex;flex-direction:column;gap:4px}
+.cal-day:last-child{border-right:none}
+.cal-event{padding:5px 8px;border-radius:7px;font-size:11px;font-weight:600;line-height:1.4;cursor:pointer}
+.cal-event-teal{background:var(--teal-l);color:var(--teal)}
+.cal-event-violet{background:var(--violet-l);color:var(--violet)}
+.cal-event-amber{background:var(--amber-l);color:var(--amber)}
+
+/* ── MINI CHART ── */
+.mini-sparkline{display:flex;align-items:flex-end;gap:3px;height:36px}
+.spark-bar{flex:1;border-radius:3px 3px 0 0;background:var(--teal-m);min-width:4px;transition:height .3s}
+.spark-bar.highlight{background:var(--teal)}
+
+/* ── CLINICAL PANEL (consulta) ── */
+.consult-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;height:calc(100vh - 120px)}
+.consult-main{display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+.consult-side{display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+
+/* ── DISTRIBUTION FEED ── */
+.feed-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--off)}
+.feed-item:last-child{border-bottom:none}
+.feed-icon-wrap{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.feed-body{flex:1;min-width:0}
+.feed-title{font-size:14px;font-weight:700;color:var(--carbon);margin-bottom:3px}
+.feed-meta{font-size:11px;color:var(--gray);margin-bottom:6px}
+.feed-preview{font-size:12px;color:var(--slate);line-height:1.6}
+
+/* ── TACO TABLE ── */
+.taco-search{display:flex;align-items:center;gap:10px;background:var(--off);border:1.5px solid var(--silver);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.taco-search input{border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:14px;color:var(--carbon);outline:none;flex:1}
+
+/* ── CALC ── */
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.calc-card{background:var(--off);border-radius:var(--radius);padding:16px;cursor:pointer;border:2px solid transparent;transition:all .15s}
+.calc-card:hover,.calc-card.active{border-color:var(--teal);background:var(--teal-l)}
+.calc-name{font-size:13px;font-weight:700;color:var(--carbon);margin-bottom:4px}
+.calc-desc{font-size:11px;color:var(--slate)}
+.calc-panel{background:var(--off);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}
+.calc-panel.visible{display:block}
+.calc-result{background:var(--white);border:2px solid var(--teal);border-radius:12px;padding:16px;text-align:center;margin-top:16px}
+.calc-result-value{font-size:32px;font-weight:800;color:var(--teal);font-family:'Fira Code',monospace}
+.calc-result-label{font-size:12px;color:var(--slate);margin-top:4px}
+
+/* ── PRONTUÁRIO LAYOUT ── */
+.pront-layout{display:grid;grid-template-columns:260px 1fr 280px;gap:14px;height:calc(100vh - 120px)}
+.pront-panel{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.pront-panel-header{padding:14px 16px;border-bottom:1px solid var(--silver);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pront-panel-body{flex:1;overflow-y:auto;padding:14px}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:12px;padding-bottom:16px;position:relative}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);margin-top:4px;flex-shrink:0;position:relative;z-index:1}
+.tl-dot::after{content:'';position:absolute;top:10px;left:4px;width:2px;height:calc(100% + 6px);background:var(--silver)}
+.tl-item:last-child .tl-dot::after{display:none}
+.tl-body{flex:1;min-width:0}
+.tl-date{font-size:10px;font-weight:700;color:var(--gray);margin-bottom:2px}
+.tl-title{font-size:12px;font-weight:700;color:var(--carbon)}
+.tl-detail{font-size:11px;color:var(--slate);line-height:1.5}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{border:2px dashed var(--silver);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color .15s}
+.upload-zone:hover{border-color:var(--teal);background:var(--teal-l)}
+
+/* ── BILLING ── */
+.billing-card{background:linear-gradient(135deg,var(--teal),var(--teal-d));border-radius:var(--radius-lg);padding:28px;color:#fff}
+.billing-plan{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+.billing-price{font-size:42px;font-weight:900;line-height:1}
+.billing-period{font-size:13px;opacity:.8;margin-bottom:20px}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.page.active{animation:fadeIn .2s ease}
+
+/* ── PROFESSIONALS LIST ── */
+.prof-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--off)}
+.prof-row:last-child{border-bottom:none}
+.prof-info{flex:1}
+.prof-name{font-size:13px;font-weight:700;color:var(--carbon)}
+.prof-meta{font-size:11px;color:var(--gray)}
+
+/* ── QUICK ACTIONS ── */
+.quick-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.qa-btn{background:var(--white);border:1.5px solid var(--silver);border-radius:var(--radius);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:all .15s;text-align:center}
+.qa-btn:hover{border-color:var(--teal);background:var(--teal-l)}
+.qa-btn i{font-size:22px;color:var(--teal)}
+.qa-btn span{font-size:11px;font-weight:700;color:var(--carbon);line-height:1.3}
+
+/* ── ANALYTICS CHART ── */
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:100px;padding-top:10px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bar-fill{width:100%;border-radius:5px 5px 0 0;background:var(--teal-m);min-height:4px;transition:background .2s}
+.bar-fill.active{background:var(--teal)}
+.bar-label{font-size:10px;color:var(--gray);white-space:nowrap}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--silver);border-radius:10px}
+
+/* ── TABS ── */
+.tab-row{display:flex;gap:0;border-bottom:2px solid var(--silver);margin-bottom:16px}
+.tab{padding:10px 18px;font-size:13px;font-weight:700;color:var(--slate);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* ── EXAM CARD ── */
+.exam-card{display:flex;align-items:center;gap:14px;padding:14px;background:var(--off);border-radius:var(--radius);margin-bottom:8px}
+.exam-icon{width:40px;height:40px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--teal)}
+
+/* ── CONTENT EDITOR ── */
+.editor-toolbar{display:flex;gap:4px;padding:8px;background:var(--off);border-radius:10px 10px 0 0;border:1.5px solid var(--silver);border-bottom:none}
+.editor-btn{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;font-size:14px;color:var(--slate);border:none;background:transparent;transition:background .15s}
+.editor-btn:hover{background:var(--silver)}
+.editor-area{border:1.5px solid var(--silver);border-radius:0 0 10px 10px;padding:14px;min-height:120px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--carbon);outline:none}
+
+/* ── INVITE ── */
+.invite-link-box{background:var(--off);border:1.5px solid var(--silver);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-family:'Fira Code',monospace;font-size:12px;color:var(--slate)}
+
+/* ── PRESCRIPTION ── */
+.rx-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--off);border-radius:10px;margin-bottom:8px}
+.rx-name{font-size:13px;font-weight:700;color:var(--carbon)}
+.rx-dose{font-size:12px;color:var(--slate)}
+
+/* ── 2 column layout ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LOGIN ═══════════════════ -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="login-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9z"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <div style="text-align:center">
+        <div class="login-wordmark">NutriMind</div>
+        <div class="login-sub">MIND: CPANEM</div>
+      </div>
+    </div>
+    <div class="login-title">Bem-vinda de volta</div>
+    <div class="login-desc">Acesse a plataforma clínica CPANEM</div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="selectRole('admin')">Dra. Ivana</button>
+      <button class="role-tab" onclick="selectRole('prof')">Profissional</button>
+    </div>
+    <div class="login-field">
+      <label>E-mail</label>
+      <input type="email" id="login-email" value="ivana@cpanem.com.br" readonly/>
+      <div class="email-hint" id="login-email-hint">ivana@cpanem.com.br</div>
+    </div>
+    <div class="login-field">
+      <label>Senha</label>
+      <input type="password" value="••••••••"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Entrar na plataforma</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ APP SHELL ═══════════════════ -->
+<div id="app">
+
+  <!-- ── SIDEBAR ── -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sb-logo-mark">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <div class="sb-logo-text">
+        <div class="sb-wordmark">NutriMind</div>
+        <div class="sb-instance" id="sb-instance-label">MIND: CPANEM</div>
+      </div>
+    </div>
+
+    <!-- Admin Nav -->
+    <div class="sidebar-nav" id="nav-admin">
+      <div class="sb-section-label">Principal</div>
+      <div class="sb-item active" onclick="showPage('dashboard-admin')"><i class="ph-bold ph-squares-four sb-icon"></i><span class="sb-label">Dashboard</span></div>
+      <div class="sb-item" onclick="showPage('rede-prof')"><i class="ph-bold ph-users-three sb-icon"></i><span class="sb-label">Rede de Profissionais</span><span class="sb-badge">24</span></div>
+      <div class="sb-item" onclick="showPage('distribuicao')"><i class="ph-bold ph-broadcast sb-icon"></i><span class="sb-label">Distribuição de Conteúdo</span></div>
+      <div class="sb-item" onclick="showPage('templates-admin')"><i class="ph-bold ph-files sb-icon"></i><span class="sb-label">Templates</span></div>
+      <div class="sb-section-label">CPANEM</div>
+      <div class="sb-item" onclick="showPage('calculadoras')"><i class="ph-bold ph-calculator sb-icon"></i><span class="sb-label">Calculadoras</span></div>
+      <div class="sb-item" onclick="showPage('comunicacao-admin')"><i class="ph-bold ph-chat-dots sb-icon"></i><span class="sb-label">Comunicação</span><span class="sb-badge">3</span></div>
+      <div class="sb-item" onclick="showPage('analytics-admin')"><i class="ph-bold ph-chart-bar sb-icon"></i><span class="sb-label">Analytics / Adoção</span></div>
+      <div class="sb-item" onclick="showPage('convites')"><i class="ph-bold ph-envelope-open sb-icon"></i><span class="sb-label">Convites</span></div>
+      <div class="sb-section-label">Conta</div>
+      <div class="sb-item" onclick="showPage('configuracoes-admin')"><i class="ph-bold ph-gear sb-icon"></i><span class="sb-label">Configurações</span></div>
+    </div>
+
+    <!-- Prof Nav -->
+    <div class="sidebar-nav" id="nav-prof" style="display:none">
+      <div class="sb-section-label">Clínica</div>
+      <div class="sb-item active" onclick="showPage('dashboard-prof')"><i class="ph-bold ph-squares-four sb-icon"></i><span class="sb-label">Dashboard</span></div>
+      <div class="sb-item" onclick="showPage('pacientes')"><i class="ph-bold ph-users sb-icon"></i><span class="sb-label">Pacientes</span></div>
+      <div class="sb-item" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open sb-icon"></i><span class="sb-label">Prontuário</span></div>
+      <div class="sb-item" onclick="showPage('exames')"><i class="ph-bold ph-test-tube sb-icon"></i><span class="sb-label">Exames</span></div>
+      <div class="sb-item" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope sb-icon"></i><span class="sb-label">Consulta em Andamento</span></div>
+      <div class="sb-item" onclick="showPage('agenda')"><i class="ph-bold ph-calendar sb-icon"></i><span class="sb-label">Agenda</span></div>
+      <div class="sb-item" onclick="showPage('prescricoes')"><i class="ph-bold ph-notepad sb-icon"></i><span class="sb-label">Prescrições</span></div>
+      <div class="sb-item" onclick="showPage('envio-conteudo')"><i class="ph-bold ph-paper-plane-tilt sb-icon"></i><span class="sb-label">Envio de Conteúdo</span></div>
+      <div class="sb-section-label">CPANEM</div>
+      <div class="sb-item" onclick="showPage('area-cpanem')"><i class="ph-bold ph-star sb-icon"></i><span class="sb-label">Área CPANEM</span></div>
+      <div class="sb-section-label">Conta</div>
+      <div class="sb-item" onclick="showPage('billing')"><i class="ph-bold ph-credit-card sb-icon"></i><span class="sb-label">Billing</span></div>
+      <div class="sb-item" onclick="showPage('configuracoes-prof')"><i class="ph-bold ph-gear sb-icon"></i><span class="sb-label">Configurações</span></div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sb-user" onclick="doLogout()">
+        <div class="sb-avatar" id="sb-avatar">IV</div>
+        <div class="sb-user-info">
+          <div class="sb-user-name" id="sb-user-name">Dra. Ivana Mariah</div>
+          <div class="sb-user-role" id="sb-user-role">Admin CPANEM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-search">
+        <i class="ph-bold ph-magnifying-glass" style="color:var(--gray);font-size:15px"></i>
+        <input type="text" placeholder="Busca global..."/>
+      </div>
+      <div class="topbar-icon-btn"><i class="ph-bold ph-bell"></i></div>
+      <span class="role-indicator role-admin" id="role-badge">Admin CPANEM</span>
+      <div class="topbar-profile" id="topbar-avatar">IV</div>
+    </div>
+
+    <div class="content-area">
+
+<!-- ═══ ADMIN: DASHBOARD ═══ -->
+<div class="page active" id="page-dashboard-admin">
+  <div class="section-header">
+    <div><div class="section-title">Bom dia, Dra. Ivana</div><div class="section-sub">Quarta-feira, 7 de maio de 2026</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-plus"></i>Novo conteúdo</button>
+  </div>
+  <div class="metrics-row cols-4">
+    <div class="metric-card">
+      <div class="metric-label"><i class="ph-bold ph-users-three" style="color:var(--teal)"></i>Profissionais ativos</div>
+      <div class="metric-value">24</div>
+      <div style="display:flex;align-items:center;gap:6px"><span class="metric-delta delta-up">+3 este mês</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label"><i class="ph-bold ph-user-plus" style="color:var(--violet)"></i>Novos este mês</div>
+      <div class="metric-value">3</div>
+      <span class="metric-delta delta-up">vs 1 anterior</span>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label"><i class="ph-bold ph-broadcast" style="color:var(--amber)"></i>Conteúdos enviados</div>
+      <div class="metric-value">18</div>
+      <span class="metric-delta delta-neutral">este mês</span>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label"><i class="ph-bold ph-chart-line-up" style="color:var(--sage)"></i>Adoção CPANEM</div>
+      <div class="metric-value">76%</div>
+      <span class="metric-delta delta-up">+4pp</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Distribuições recentes</div><span class="card-action" onclick="showPage('distribuicao')">Ver tudo</span></div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--teal-l)"><i class="ph-bold ph-file-pdf" style="color:var(--teal);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Protocolo CEPANEM — Resistência Insulínica</div><div class="feed-meta">Há 2 dias · 24 destinatários · <span style="color:var(--teal);font-weight:700">89% aberto</span></div></div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--violet-l)"><i class="ph-bold ph-article" style="color:var(--violet);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Artigo OMS — Microbiota e metabolismo</div><div class="feed-meta">Há 5 dias · 24 destinatários · <span style="color:var(--teal);font-weight:700">72% aberto</span></div></div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--amber-l)"><i class="ph-bold ph-clipboard-text" style="color:var(--amber);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Plano alimentar — Low Carb adaptado</div><div class="feed-meta">Há 1 semana · 24 destinatários · <span style="color:var(--amber);font-weight:700">61% aberto</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Adoção por profissional</div><span class="card-action" onclick="showPage('analytics-admin')">Relatório</span></div>
+      <div class="prof-row">
+        <div class="avatar av-teal">RC</div>
+        <div class="prof-info"><div class="prof-name">Dr. Rafael Costa</div><div class="prof-meta">Nutrologia · Ativo há 8 meses</div></div>
+        <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:var(--teal)">94%</div><div class="progress-bar" style="width:80px;margin-top:4px"><div class="progress-fill" style="width:94%"></div></div></div>
+      </div>
+      <div class="prof-row">
+        <div class="avatar av-violet">CS</div>
+        <div class="prof-info"><div class="prof-name">Dra. Camila Santos</div><div class="prof-meta">Nutricionista · Ativo há 5 meses</div></div>
+        <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:var(--teal)">81%</div><div class="progress-bar" style="width:80px;margin-top:4px"><div class="progress-fill" style="width:81%"></div></div></div>
+      </div>
+      <div class="prof-row">
+        <div class="avatar av-amber">ML</div>
+        <div class="prof-info"><div class="prof-name">Dr. Marcelo Lima</div><div class="prof-meta">Endocrinologia · Ativo há 3 meses</div></div>
+        <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:var(--amber)">43%</div><div class="progress-bar" style="width:80px;margin-top:4px"><div class="progress-fill" style="width:43%;background:var(--amber)"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: REDE DE PROFISSIONAIS ═══ -->
+<div class="page" id="page-rede-prof">
+  <div class="section-header">
+    <div><div class="section-title">Rede de Profissionais</div><div class="section-sub">24 profissionais ativos na rede CPANEM</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary"><i class="ph-bold ph-funnel"></i>Filtros</button>
+      <button class="btn btn-primary" onclick="showPage('convites')"><i class="ph-bold ph-envelope-open"></i>Convidar</button>
+    </div>
+  </div>
+  <div class="card">
+    <table class="data-table">
+      <thead><tr>
+        <th>Profissional</th><th>Especialidade</th><th>CRM/CRN</th><th>Entrada</th><th>Último acesso</th><th>Adoção CPANEM</th><th>Status</th><th></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar av-teal">RC</div><div><div style="font-weight:700">Dr. Rafael Costa</div><div style="font-size:11px;color:var(--gray)">rafael@nutrologia.com.br</div></div></div></td><td>Nutrologia</td><td style="font-family:'Fira Code',monospace;font-size:12px">CRM-SP 134.892</td><td>Set 2025</td><td>Hoje, 09:21</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:94%"></div></div><span style="font-size:12px;font-weight:700;color:var(--teal)">94%</span></div></td><td><span class="badge badge-sage">Ativo</span></td><td><button class="btn btn-ghost btn-sm">Ver</button></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar av-violet">CS</div><div><div style="font-weight:700">Dra. Camila Santos</div><div style="font-size:11px;color:var(--gray)">camila@nutricao.com.br</div></div></div></td><td>Nutrição clínica</td><td style="font-family:'Fira Code',monospace;font-size:12px">CRN-3 42.156</td><td>Dez 2025</td><td>Ontem, 18:44</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:81%"></div></div><span style="font-size:12px;font-weight:700;color:var(--teal)">81%</span></div></td><td><span class="badge badge-sage">Ativo</span></td><td><button class="btn btn-ghost btn-sm">Ver</button></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar av-amber">ML</div><div><div style="font-weight:700">Dr. Marcelo Lima</div><div style="font-size:11px;color:var(--gray)">marcelo@endocrino.com.br</div></div></div></td><td>Endocrinologia</td><td style="font-family:'Fira Code',monospace;font-size:12px">CRM-RJ 98.341</td><td>Fev 2026</td><td>Há 5 dias</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:43%;background:var(--amber)"></div></div><span style="font-size:12px;font-weight:700;color:var(--amber)">43%</span></div></td><td><span class="badge badge-amber">Baixa adoção</span></td><td><button class="btn btn-ghost btn-sm">Ver</button></td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar av-slate">JP</div><div><div style="font-weight:700">Dra. Juliana Pereira</div><div style="font-size:11px;color:var(--gray)">juliana@metabolismo.com</div></div></div></td><td>Medicina integrativa</td><td style="font-family:'Fira Code',monospace;font-size:12px">CRM-MG 77.209</td><td>Mar 2026</td><td>Há 12 dias</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:22%;background:var(--red)"></div></div><span style="font-size:12px;font-weight:700;color:var(--red)">22%</span></div></td><td><span class="badge badge-red">Inativo</span></td><td><button class="btn btn-ghost btn-sm">Ver</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: DISTRIBUIÇÃO ═══ -->
+<div class="page" id="page-distribuicao">
+  <div class="section-header">
+    <div><div class="section-title">Distribuição de Conteúdo</div><div class="section-sub">Publique e distribua para a rede CPANEM</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-plus"></i>Novo conteúdo</button>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Publicar novo conteúdo</div>
+      <div class="form-field" style="margin-bottom:12px">
+        <label class="field-label">Tipo de conteúdo</label>
+        <select class="field-select">
+          <option>PDF / Documento</option>
+          <option>Artigo escrito</option>
+          <option>Announcement</option>
+          <option>Link externo</option>
+          <option>Protocolo clínico</option>
+          <option>Mensagem em massa</option>
+        </select>
+      </div>
+      <div class="form-field" style="margin-bottom:12px">
+        <label class="field-label">Título</label>
+        <input type="text" class="field-input" placeholder="Ex: Protocolo resistência insulínica v2"/>
+      </div>
+      <div class="form-field" style="margin-bottom:12px">
+        <label class="field-label">Destinatários</label>
+        <select class="field-select">
+          <option>Todos os profissionais (24)</option>
+          <option>Somente nutrólogos</option>
+          <option>Somente nutricionistas</option>
+          <option>Endocrinologistas</option>
+          <option>Selecionar individualmente</option>
+        </select>
+      </div>
+      <div class="upload-zone" style="margin-bottom:12px">
+        <i class="ph-bold ph-upload-simple" style="font-size:28px;color:var(--gray);margin-bottom:8px;display:block"></i>
+        <div style="font-size:13px;font-weight:700;color:var(--carbon)">Arraste o arquivo aqui</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:4px">PDF, Word, imagem — até 50MB</div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="editor-btn"><b>B</b></button>
+        <button class="editor-btn"><i>I</i></button>
+        <button class="editor-btn"><u>U</u></button>
+        <button class="editor-btn">H1</button>
+        <button class="editor-btn"><i class="ph-bold ph-list"></i></button>
+        <button class="editor-btn"><i class="ph-bold ph-link"></i></button>
+      </div>
+      <div class="editor-area" contenteditable="true" placeholder="Mensagem opcional para os profissionais...">Prezados profissionais da rede CPANEM,<br><br>Segue em anexo o protocolo atualizado para manejo de resistência insulínica, com as diretrizes revisadas de março/2026.</div>
+      <button class="btn btn-primary" style="margin-top:12px;width:100%"><i class="ph-bold ph-paper-plane-tilt"></i>Publicar e distribuir</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Histórico de distribuições</div></div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--teal-l)"><i class="ph-bold ph-file-pdf" style="color:var(--teal);font-size:20px"></i></div>
+        <div class="feed-body">
+          <div class="feed-title">Protocolo — Resistência Insulínica</div>
+          <div class="feed-meta">Há 2 dias · 24 dest.</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:89%"></div></div><span style="font-size:11px;font-weight:700;color:var(--teal)">89% aberto</span></div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--violet-l)"><i class="ph-bold ph-article" style="color:var(--violet);font-size:20px"></i></div>
+        <div class="feed-body">
+          <div class="feed-title">Artigo OMS — Microbiota</div>
+          <div class="feed-meta">Há 5 dias · 24 dest.</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:72%"></div></div><span style="font-size:11px;font-weight:700;color:var(--teal)">72% aberto</span></div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--amber-l)"><i class="ph-bold ph-clipboard-text" style="color:var(--amber);font-size:20px"></i></div>
+        <div class="feed-body">
+          <div class="feed-title">Plano alimentar Low Carb</div>
+          <div class="feed-meta">Há 1 semana · 24 dest.</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:61%"></div></div><span style="font-size:11px;font-weight:700;color:var(--amber)">61% aberto</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: TEMPLATES ═══ -->
+<div class="page" id="page-templates-admin">
+  <div class="section-header">
+    <div><div class="section-title">Templates CPANEM</div><div class="section-sub">Biblioteca de prescrições, protocolos e orientações</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-plus"></i>Novo template</button>
+  </div>
+  <div class="card">
+    <div class="tab-row">
+      <div class="tab active">Todos</div><div class="tab">Protocolos</div><div class="tab">Prescrições</div><div class="tab">Formulários</div><div class="tab">Planos alimentares</div><div class="tab">Orientações</div>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Template</th><th>Tipo</th><th>Versão</th><th>Última edição</th><th>Uso</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><div style="font-weight:700">Resistência Insulínica — Protocolo base</div><div style="font-size:11px;color:var(--gray)">Conduta, dieta, suplementação e acompanhamento</div></td><td><span class="badge badge-teal">Protocolo</span></td><td style="font-family:'Fira Code',monospace;font-size:12px">v3.1</td><td>02 mai 2026</td><td style="font-size:13px;font-weight:700;color:var(--teal)">18×</td><td><div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm">Editar</button><button class="btn btn-ghost btn-sm">Duplicar</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Prescrição Suplementação — DM2</div><div style="font-size:11px;color:var(--gray)">Berberina, Magnésio, Ômega-3 — dosagem e posologia</div></td><td><span class="badge badge-violet">Prescrição</span></td><td style="font-family:'Fira Code',monospace;font-size:12px">v2.0</td><td>28 abr 2026</td><td style="font-size:13px;font-weight:700;color:var(--teal)">12×</td><td><div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm">Editar</button><button class="btn btn-ghost btn-sm">Duplicar</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Anamnese inicial — Metabólico</div><div style="font-size:11px;color:var(--gray)">Questionário completo para 1ª consulta</div></td><td><span class="badge badge-amber">Formulário</span></td><td style="font-family:'Fira Code',monospace;font-size:12px">v1.4</td><td>15 abr 2026</td><td style="font-size:13px;font-weight:700;color:var(--teal)">31×</td><td><div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm">Editar</button><button class="btn btn-ghost btn-sm">Duplicar</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Low Carb Adaptado — 1600kcal</div><div style="font-size:11px;color:var(--gray)">Plano semanal completo com substituições</div></td><td><span class="badge badge-sage">Plano alimentar</span></td><td style="font-family:'Fira Code',monospace;font-size:12px">v1.2</td><td>10 abr 2026</td><td style="font-size:13px;font-weight:700;color:var(--teal)">8×</td><td><div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm">Editar</button><button class="btn btn-ghost btn-sm">Duplicar</button></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: CALCULADORAS ═══ -->
+<div class="page" id="page-calculadoras">
+  <div class="section-header">
+    <div><div class="section-title">Calculadoras CPANEM</div><div class="section-sub">Benefício exclusivo para profissionais da rede</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px">Controle de acesso por calculadora</div>
+    <div class="calc-grid">
+      <div class="calc-card active" onclick="showCalc('fib4')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">FIB-4</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">Score de fibrose hepática — (Idade × AST) ÷ (Plaquetas × √ALT)</div>
+      </div>
+      <div class="calc-card" onclick="showCalc('hb')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">Harris-Benedict (GEB)</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">Gasto energético basal por sexo, peso, altura e idade</div>
+      </div>
+      <div class="calc-card" onclick="showCalc('imc')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">IMC</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">Índice de Massa Corporal com classificação por faixa</div>
+      </div>
+      <div class="calc-card" onclick="showCalc('tanaka')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">FC Máxima — Tanaka</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">FCmax = 208 − (0,7 × idade)</div>
+      </div>
+      <div class="calc-card" onclick="showCalc('risco')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">Risco Metabólico</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">Circunferência abdominal + RCQ por sexo</div>
+      </div>
+      <div class="calc-card" onclick="showCalc('macros')">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+          <div class="calc-name">Distribuição de Macros</div>
+          <span class="badge badge-sage">Ativo</span>
+        </div>
+        <div class="calc-desc">g de CHO, PTN e LIP por objetivo e meta calórica</div>
+      </div>
+    </div>
+    <!-- FIB-4 CALC PANEL -->
+    <div class="calc-panel visible" id="calc-fib4">
+      <div style="font-size:14px;font-weight:700;color:var(--carbon);margin-bottom:14px">FIB-4 — Score de fibrose hepática</div>
+      <div class="form-grid cols-3" style="margin-bottom:12px">
+        <div class="form-field"><label class="field-label">Idade (anos)</label><input type="number" class="field-input" id="fib-idade" placeholder="Ex: 52" oninput="calcFib4()"/></div>
+        <div class="form-field"><label class="field-label">AST (U/L)</label><input type="number" class="field-input" id="fib-ast" placeholder="Ex: 38" oninput="calcFib4()"/></div>
+        <div class="form-field"><label class="field-label">ALT (U/L)</label><input type="number" class="field-input" id="fib-alt" placeholder="Ex: 42" oninput="calcFib4()"/></div>
+        <div class="form-field"><label class="field-label">Plaquetas (10⁹/L)</label><input type="number" class="field-input" id="fib-plaq" placeholder="Ex: 220" oninput="calcFib4()"/></div>
+      </div>
+      <div class="calc-result" id="calc-result-fib4">
+        <div class="calc-result-value" id="fib4-value">—</div>
+        <div class="calc-result-label" id="fib4-class">Preencha os campos para calcular</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: COMUNICAÇÃO ═══ -->
+<div class="page" id="page-comunicacao-admin">
+  <div class="section-title" style="margin-bottom:16px">Comunicação — Rede CPANEM</div>
+  <div class="chat-wrap">
+    <div class="chat-list">
+      <div class="chat-list-header">Conversas</div>
+      <div class="chat-item active"><div class="avatar av-teal" style="margin-right:0">RC</div><div class="chat-item-info" style="margin-left:10px"><div class="chat-item-name">Dr. Rafael Costa</div><div class="chat-item-preview">Obrigado pelo protocolo...</div></div></div>
+      <div class="chat-item"><div class="avatar av-violet" style="margin-right:0">CS</div><div class="chat-item-info" style="margin-left:10px"><div class="chat-item-name">Dra. Camila Santos</div><div class="chat-item-preview">Tenho uma dúvida sobre a...</div></div></div>
+      <div class="chat-item"><div class="avatar av-amber" style="margin-right:0">ML</div><div class="chat-item-info" style="margin-left:10px"><div class="chat-item-name">Dr. Marcelo Lima</div><div class="chat-item-preview">Boa tarde, Dra. Ivana</div></div></div>
+    </div>
+    <div class="chat-main">
+      <div class="chat-header"><div class="avatar av-teal">RC</div><div><div style="font-size:14px;font-weight:700">Dr. Rafael Costa</div><div style="font-size:11px;color:var(--sage)">Online agora</div></div></div>
+      <div class="chat-messages">
+        <div class="chat-msg incoming">Dra. Ivana, bom dia! Recebi o protocolo de resistência insulínica. Já apliquei em 3 pacientes essa semana.<div class="chat-msg-time">08:14</div></div>
+        <div class="chat-msg outgoing">Ótimo, Dr. Rafael! Como está a resposta dos pacientes?<div class="chat-msg-time">08:32</div></div>
+        <div class="chat-msg incoming">Muito positiva. Tenho uma dúvida sobre a dosagem de berberina para pacientes com HbA1c acima de 8%. Há alguma orientação específica no protocolo?<div class="chat-msg-time">08:45</div></div>
+        <div class="chat-msg outgoing">Boa pergunta. Para HbA1c &gt; 8%, recomendo iniciar com 500mg 2×/dia por 4 semanas antes de subir. Vou atualizar o protocolo com essa observação.<div class="chat-msg-time">09:02</div></div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" placeholder="Escreva uma mensagem..."/>
+        <button class="btn btn-primary btn-icon"><i class="ph-bold ph-paper-plane-tilt"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: ANALYTICS ═══ -->
+<div class="page" id="page-analytics-admin">
+  <div class="section-header">
+    <div><div class="section-title">Analytics / Adoção</div><div class="section-sub">Engajamento da rede CPANEM</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-file-xls"></i>Exportar Excel</button>
+      <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-file-pdf"></i>Exportar PDF</button>
+    </div>
+  </div>
+  <div class="metrics-row cols-4">
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-users-three" style="color:var(--teal)"></i>Ativos (30d)</div><div class="metric-value">19</div><div class="metric-sub">de 24 total</div></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-chart-line-up" style="color:var(--teal)"></i>Adoção média</div><div class="metric-value">76%</div><span class="metric-delta delta-up">+4pp</span></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-eye" style="color:var(--violet)"></i>Conteúdos abertos</div><div class="metric-value">312</div><div class="metric-sub">este mês</div></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-calculator" style="color:var(--amber)"></i>Uso de calculadoras</div><div class="metric-value">87</div><div class="metric-sub">este mês</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card"><div class="card-title" style="margin-bottom:16px">Abertura de conteúdo por semana</div>
+      <div class="bar-chart">
+        <div class="bar-col"><div class="bar-fill" style="height:40px"></div><div class="bar-label">S1</div></div>
+        <div class="bar-col"><div class="bar-fill" style="height:65px"></div><div class="bar-label">S2</div></div>
+        <div class="bar-col"><div class="bar-fill" style="height:55px"></div><div class="bar-label">S3</div></div>
+        <div class="bar-col"><div class="bar-fill active" style="height:90px"></div><div class="bar-label">S4</div></div>
+        <div class="bar-col"><div class="bar-fill" style="height:70px"></div><div class="bar-label">S5</div></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-title" style="margin-bottom:16px">Profissionais com baixa adoção</div>
+      <div class="prof-row"><div class="avatar av-slate">JP</div><div class="prof-info"><div class="prof-name">Dra. Juliana Pereira</div><div class="prof-meta">Último acesso: há 12 dias</div></div><span class="badge badge-red">22%</span></div>
+      <div class="prof-row"><div class="avatar av-amber">ML</div><div class="prof-info"><div class="prof-name">Dr. Marcelo Lima</div><div class="prof-meta">Último acesso: há 5 dias</div></div><span class="badge badge-amber">43%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: CONVITES ═══ -->
+<div class="page" id="page-convites">
+  <div class="section-header">
+    <div><div class="section-title">Convites</div><div class="section-sub">Expanda a rede CPANEM</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Convidar profissional</div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">Nome completo</label><input type="text" class="field-input" placeholder="Dr. / Dra."/></div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">E-mail</label><input type="email" class="field-input" placeholder="profissional@email.com"/></div>
+      <div class="form-field" style="margin-bottom:16px"><label class="field-label">Especialidade</label><select class="field-select"><option>Nutrologia</option><option>Nutrição clínica</option><option>Endocrinologia</option><option>Medicina integrativa</option><option>Outro</option></select></div>
+      <button class="btn btn-primary" style="width:100%"><i class="ph-bold ph-envelope-open"></i>Enviar convite por e-mail</button>
+      <div style="margin:20px 0;border-top:1px solid var(--silver);padding-top:16px">
+        <div class="field-label" style="margin-bottom:8px">Ou compartilhe o link de cadastro</div>
+        <div class="invite-link-box">
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">nutrimind.com/cpanem/cadastro?ref=CPANEM-IVA</span>
+          <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-copy"></i>Copiar</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Convites enviados</div></div>
+      <table class="data-table">
+        <thead><tr><th>Profissional</th><th>Enviado em</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><div style="font-weight:700">Dra. Ana Carvalho</div><div style="font-size:11px;color:var(--gray)">ana@clinica.com</div></td><td style="font-size:12px">03 mai 2026</td><td><span class="badge badge-amber">Pendente</span></td></tr>
+          <tr><td><div style="font-weight:700">Dr. Bruno Ferreira</div><div style="font-size:11px;color:var(--gray)">bruno@nutro.com</div></td><td style="font-size:12px">28 abr 2026</td><td><span class="badge badge-sage">Aceito</span></td></tr>
+          <tr><td><div style="font-weight:700">Dra. Fernanda Melo</div><div style="font-size:11px;color:var(--gray)">fernanda@endo.com</div></td><td style="font-size:12px">20 abr 2026</td><td><span class="badge badge-red">Expirado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN: CONFIGURAÇÕES ═══ -->
+<div class="page" id="page-configuracoes-admin">
+  <div class="section-title" style="margin-bottom:20px">Configurações</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Perfil profissional</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+        <div style="width:64px;height:64px;background:var(--teal);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff">IV</div>
+        <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-camera"></i>Alterar foto</button>
+      </div>
+      <div class="form-grid cols-2">
+        <div class="form-field"><label class="field-label">Nome completo</label><input type="text" class="field-input" value="Dra. Ivana Mariah"/></div>
+        <div class="form-field"><label class="field-label">CRM</label><input type="text" class="field-input" value="CRM-SP 98.112" style="font-family:'Fira Code',monospace"/></div>
+        <div class="form-field"><label class="field-label">Especialidade</label><input type="text" class="field-input" value="Nutrologia"/></div>
+        <div class="form-field"><label class="field-label">Telefone</label><input type="text" class="field-input" value="(11) 99999-0000"/></div>
+      </div>
+      <div class="form-field" style="margin-top:12px"><label class="field-label">Bio / Apresentação</label><textarea class="field-textarea">Nutróloga especialista em saúde metabólica e fundadora do programa CPANEM. Mais de 10 anos de experiência clínica.</textarea></div>
+      <button class="btn btn-primary" style="margin-top:16px"><i class="ph-bold ph-check"></i>Salvar alterações</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Segurança</div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">Senha atual</label><input type="password" class="field-input" value="••••••••"/></div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">Nova senha</label><input type="password" class="field-input" placeholder="Mínimo 8 caracteres"/></div>
+      <div class="form-field" style="margin-bottom:20px"><label class="field-label">Confirmar nova senha</label><input type="password" class="field-input"/></div>
+      <div style="background:var(--teal-l);border-radius:var(--radius);padding:14px;display:flex;align-items:start;gap:10px;margin-bottom:20px">
+        <i class="ph-bold ph-shield-check" style="color:var(--teal);font-size:20px;margin-top:2px"></i>
+        <div><div style="font-size:13px;font-weight:700;color:var(--carbon);margin-bottom:4px">Autenticação em dois fatores (2FA)</div><div style="font-size:12px;color:var(--slate)">Obrigatório para o backoffice. Configurado via app autenticador.</div></div>
+        <span class="badge badge-sage" style="margin-left:auto">Ativo</span>
+      </div>
+      <button class="btn btn-primary"><i class="ph-bold ph-lock"></i>Atualizar senha</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: DASHBOARD ═══ -->
+<div class="page" id="page-dashboard-prof">
+  <div class="section-header">
+    <div><div class="section-title">Bom dia, Dr. Rafael</div><div class="section-sub">Quarta-feira, 7 de maio de 2026</div></div>
+  </div>
+  <div class="quick-actions">
+    <div class="qa-btn" onclick="showPage('prescricoes')"><i class="ph-bold ph-notepad"></i><span>Nova prescrição</span></div>
+    <div class="qa-btn" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i><span>Novo prontuário</span></div>
+    <div class="qa-btn" onclick="showPage('agenda')"><i class="ph-bold ph-calendar-plus"></i><span>Agendar consulta</span></div>
+    <div class="qa-btn" onclick="showPage('envio-conteudo')"><i class="ph-bold ph-paper-plane-tilt"></i><span>Enviar conteúdo</span></div>
+    <div class="qa-btn" onclick="showPage('pacientes')"><i class="ph-bold ph-user-plus"></i><span>Adicionar paciente</span></div>
+  </div>
+  <div class="metrics-row cols-4">
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-stethoscope" style="color:var(--teal)"></i>Consultas hoje</div><div class="metric-value">5</div><div class="metric-sub">2 presenciais · 3 online</div></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-users" style="color:var(--violet)"></i>Pacientes ativos</div><div class="metric-value">47</div><span class="metric-delta delta-up">+2 este mês</span></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-star" style="color:var(--amber)"></i>Adoção CPANEM</div><div class="metric-value">94%</div><span class="metric-delta delta-up">Excelente</span></div>
+    <div class="metric-card"><div class="metric-label"><i class="ph-bold ph-calendar-check" style="color:var(--sage)"></i>Próxima consulta</div><div class="metric-value">10:30</div><div class="metric-sub">Maria Rocha</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Agenda de hoje</div><span class="card-action" onclick="showPage('agenda')">Ver agenda</span></div>
+      <table class="data-table">
+        <thead><tr><th>Horário</th><th>Paciente</th><th>Tipo</th><th></th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px;font-weight:700">09:00</td><td><div style="font-weight:700">Carlos Menezes</div></td><td><span class="badge badge-teal">Retorno</span></td><td><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Iniciar</button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px;font-weight:700">10:30</td><td><div style="font-weight:700">Maria Rocha</div></td><td><span class="badge badge-violet">Teleconsulta</span></td><td><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Iniciar</button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px;font-weight:700">14:00</td><td><div style="font-weight:700">João Ferreira</div></td><td><span class="badge badge-teal">1ª consulta</span></td><td><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Iniciar</button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px;font-weight:700">15:30</td><td><div style="font-weight:700">Ana Beatriz</div></td><td><span class="badge badge-teal">Retorno</span></td><td><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Iniciar</button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px;font-weight:700">17:00</td><td><div style="font-weight:700">Pedro Lima</div></td><td><span class="badge badge-violet">Teleconsulta</span></td><td><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Iniciar</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Últimos pacientes</div><span class="card-action" onclick="showPage('pacientes')">Ver todos</span></div>
+      <div class="prof-row"><div class="avatar av-teal">MR</div><div class="prof-info"><div class="prof-name">Maria Rocha</div><div class="prof-meta">DM2 · Última consulta: 22 abr</div></div><span class="badge badge-sage">Evoluindo</span></div>
+      <div class="prof-row"><div class="avatar av-violet">CM</div><div class="prof-info"><div class="prof-name">Carlos Menezes</div><div class="prof-meta">Obesidade · Última consulta: 18 abr</div></div><span class="badge badge-teal">Ativo</span></div>
+      <div class="prof-row"><div class="avatar av-amber">AB</div><div class="prof-info"><div class="prof-name">Ana Beatriz</div><div class="prof-meta">Dislipidemia · Última consulta: 10 abr</div></div><span class="badge badge-amber">Atenção</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: PACIENTES ═══ -->
+<div class="page" id="page-pacientes">
+  <div class="section-header">
+    <div><div class="section-title">Pacientes</div><div class="section-sub">47 pacientes ativos</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-user-plus"></i>Novo paciente</button>
+  </div>
+  <div class="card">
+    <div style="display:flex;gap:10px;margin-bottom:16px">
+      <div class="topbar-search" style="flex:1"><i class="ph-bold ph-magnifying-glass" style="color:var(--gray);font-size:15px"></i><input type="text" placeholder="Buscar paciente..."/></div>
+      <select class="field-select" style="width:180px"><option>Todos os status</option><option>Ativo</option><option>Inativo</option><option>Atenção</option></select>
+      <select class="field-select" style="width:200px"><option>Todos os diagnósticos</option><option>DM2</option><option>Obesidade</option><option>Dislipidemia</option></select>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Paciente</th><th>Idade</th><th>Diagnóstico</th><th>Telefone</th><th>Última consulta</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><div style="font-weight:700">Maria Rocha</div><div style="font-size:11px;color:var(--gray)">maria.rocha@email.com</div></td><td>48</td><td>DM2 · Obesidade G1</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 98765-4321</td><td>22 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Carlos Menezes</div><div style="font-size:11px;color:var(--gray)">carlos@email.com</div></td><td>55</td><td>Obesidade G2 · HAS</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 97654-3210</td><td>18 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Ana Beatriz</div><div style="font-size:11px;color:var(--gray)">ana.b@email.com</div></td><td>39</td><td>Dislipidemia</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 96543-2109</td><td>10 abr 2026</td><td><span class="badge badge-amber">Atenção</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">João Ferreira</div><div style="font-size:11px;color:var(--gray)">joao.f@email.com</div></td><td>62</td><td>Pré-diabetes · Obesidade G1</td><td style="font-family:'Fira Code',monospace;font-size:12px">(21) 99876-5432</td><td>05 mai 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ PROF: PRONTUÁRIO ═══ -->
+<div class="page" id="page-prontuario">
+  <div class="section-header" style="margin-bottom:14px">
+    <div><div class="section-title">Prontuário — Maria Rocha</div><div class="section-sub">48 anos · DM2 · Obesidade G1 · Em acompanhamento desde jan/2026</div></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-secondary btn-sm"><i class="ph-bold ph-file-pdf"></i>Exportar PDF</button><button class="btn btn-primary btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i>Iniciar consulta</button></div>
+  </div>
+  <div class="metrics-row cols-5">
+    <div class="metric-card"><div class="metric-label">Peso</div><div class="metric-value" style="font-family:'Fira Code',monospace">82,3<span style="font-size:14px;color:var(--slate)">kg</span></div><span class="metric-delta delta-up">−2,1kg</span></div>
+    <div class="metric-card"><div class="metric-label">IMC</div><div class="metric-value" style="font-family:'Fira Code',monospace">30,4</div><span class="badge badge-amber">Obesidade G1</span></div>
+    <div class="metric-card"><div class="metric-label">HbA1c</div><div class="metric-value" style="font-family:'Fira Code',monospace">7,2<span style="font-size:14px;color:var(--slate)">%</span></div><span class="metric-delta delta-up">−0,4pp</span></div>
+    <div class="metric-card"><div class="metric-label">Glicemia</div><div class="metric-value" style="font-family:'Fira Code',monospace">118<span style="font-size:14px;color:var(--slate)">mg/dL</span></div><span class="metric-delta delta-up">↓ Melhorou</span></div>
+    <div class="metric-card"><div class="metric-label">Cintura</div><div class="metric-value" style="font-family:'Fira Code',monospace">92<span style="font-size:14px;color:var(--slate)">cm</span></div><span class="metric-delta delta-neutral">−1cm</span></div>
+  </div>
+  <div class="pront-layout">
+    <div class="pront-panel">
+      <div class="pront-panel-header"><i class="ph-bold ph-list-bullets" style="color:var(--teal)"></i>Anamnese</div>
+      <div class="pront-panel-body">
+        <div style="margin-bottom:14px"><div class="field-label">Objetivo</div><div style="font-size:13px;color:var(--carbon)">Controle glicêmico e redução de peso</div></div>
+        <div style="margin-bottom:14px"><div class="field-label">Diagnóstico</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge badge-amber">DM2</span><span class="badge badge-amber">Obesidade G1</span></div></div>
+        <div style="margin-bottom:14px"><div class="field-label">Medicamentos</div><div style="font-size:12px;color:var(--slate)">Metformina 850mg 2×/dia<br>Sinvastatina 20mg 1×/dia</div></div>
+        <div style="margin-bottom:14px"><div class="field-label">Alergias</div><div style="font-size:12px;color:var(--slate)">Nenhuma registrada</div></div>
+        <div style="margin-bottom:14px"><div class="field-label">Atividade física</div><div style="font-size:12px;color:var(--slate)">Caminhada 30min — 3×/semana</div></div>
+        <div><div class="field-label">Suplementos</div><div style="font-size:12px;color:var(--slate)">Ômega-3 2g/dia<br>Vitamina D 5.000UI/dia</div></div>
+      </div>
+    </div>
+    <div class="pront-panel">
+      <div class="pront-panel-header"><i class="ph-bold ph-clock-counter-clockwise" style="color:var(--violet)"></i>Histórico clínico</div>
+      <div class="pront-panel-body">
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">22 abr 2026</div><div class="tl-title">Retorno — Consulta presencial</div><div class="tl-detail">Redução de 1,2kg. HbA1c melhorando. Mantido protocolo RI CPANEM.</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">25 mar 2026</div><div class="tl-title">Retorno — Teleconsulta</div><div class="tl-detail">Exames mostram melhora glicêmica. Ajuste na berberina para 500mg 2×/dia.</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">18 fev 2026</div><div class="tl-title">Exame — Hemograma completo</div><div class="tl-detail">Resultados dentro do esperado. HbA1c: 7,6%.</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">10 jan 2026</div><div class="tl-title">1ª consulta</div><div class="tl-detail">Início do acompanhamento. Aplicado protocolo RI CPANEM v3.1. Plano Low Carb 1.600kcal.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pront-panel">
+      <div class="pront-panel-header"><i class="ph-bold ph-chart-line-up" style="color:var(--teal)"></i>Evolução</div>
+      <div class="pront-panel-body">
+        <div style="margin-bottom:14px"><div class="field-label" style="margin-bottom:8px">Peso (kg)</div>
+          <div class="bar-chart" style="height:70px">
+            <div class="bar-col"><div class="bar-fill" style="height:60px"></div><div class="bar-label">jan</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:52px"></div><div class="bar-label">fev</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:48px"></div><div class="bar-label">mar</div></div>
+            <div class="bar-col"><div class="bar-fill active" style="height:44px"></div><div class="bar-label">abr</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-top:4px"><span>87,0kg</span><span>85,8kg</span><span>84,5kg</span><span>82,3kg</span></div>
+        </div>
+        <div style="margin-bottom:14px"><div class="field-label">HbA1c meta: &lt;7%</div><div class="progress-bar" style="margin-top:6px"><div class="progress-fill" style="width:72%"></div></div><div style="font-size:11px;color:var(--slate);margin-top:4px">7,2% → meta 7,0%</div></div>
+        <div><div class="field-label">Protocolo aplicado</div><div style="margin-top:6px"><span class="badge badge-teal"><i class="ph-bold ph-check"></i>RI CPANEM v3.1</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: EXAMES ═══ -->
+<div class="page" id="page-exames">
+  <div class="section-header">
+    <div><div class="section-title">Exames — Maria Rocha</div><div class="section-sub">Histórico de exames e marcadores laboratoriais</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-upload-simple"></i>Upload de exame</button>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Exames registrados</div>
+      <div class="exam-card"><div class="exam-icon"><i class="ph-bold ph-file-pdf"></i></div><div style="flex:1"><div style="font-weight:700;font-size:13px">Hemograma + Glicemia</div><div style="font-size:11px;color:var(--gray)">18 fev 2026 · PDF</div></div><span class="badge badge-sage">Analisado</span><button class="btn btn-ghost btn-sm">Ver</button></div>
+      <div class="exam-card"><div class="exam-icon"><i class="ph-bold ph-file-pdf"></i></div><div style="flex:1"><div style="font-weight:700;font-size:13px">Lipidograma completo</div><div style="font-size:11px;color:var(--gray)">22 mar 2026 · PDF</div></div><span class="badge badge-sage">Analisado</span><button class="btn btn-ghost btn-sm">Ver</button></div>
+      <div class="exam-card"><div class="exam-icon"><i class="ph-bold ph-file-pdf"></i></div><div style="flex:1"><div style="font-weight:700;font-size:13px">Hormônios tireoidianos</div><div style="font-size:11px;color:var(--gray)">10 abr 2026 · PDF</div></div><span class="badge badge-amber">Aguardando análise</span><button class="btn btn-ghost btn-sm">Ver</button></div>
+      <div class="upload-zone" style="margin-top:12px"><i class="ph-bold ph-upload-simple" style="font-size:24px;color:var(--gray);margin-bottom:6px;display:block"></i><div style="font-size:13px;font-weight:700">Arrastar novo exame</div><div style="font-size:11px;color:var(--gray)">PDF ou imagem</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Marcadores laboratoriais</div>
+      <table class="data-table">
+        <thead><tr><th>Marcador</th><th>Valor</th><th>Referência</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700">HbA1c</td><td style="font-family:'Fira Code',monospace;font-weight:700">7,2%</td><td style="font-size:11px;color:var(--gray)">&lt; 7%</td><td><span class="badge badge-amber">Limítrofe</span></td></tr>
+          <tr><td style="font-weight:700">Glicemia jejum</td><td style="font-family:'Fira Code',monospace;font-weight:700">118 mg/dL</td><td style="font-size:11px;color:var(--gray)">70–99</td><td><span class="badge badge-amber">Alterado</span></td></tr>
+          <tr><td style="font-weight:700">Colesterol total</td><td style="font-family:'Fira Code',monospace;font-weight:700">189 mg/dL</td><td style="font-size:11px;color:var(--gray)">&lt; 200</td><td><span class="badge badge-sage">Normal</span></td></tr>
+          <tr><td style="font-weight:700">Triglicérides</td><td style="font-family:'Fira Code',monospace;font-weight:700">142 mg/dL</td><td style="font-size:11px;color:var(--gray)">&lt; 150</td><td><span class="badge badge-sage">Normal</span></td></tr>
+          <tr><td style="font-weight:700">TSH</td><td style="font-family:'Fira Code',monospace;font-weight:700">2,1 mUI/L</td><td style="font-size:11px;color:var(--gray)">0,4–4,0</td><td><span class="badge badge-sage">Normal</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: CONSULTA EM ANDAMENTO ═══ -->
+<div class="page" id="page-consulta">
+  <div class="section-header" style="margin-bottom:14px">
+    <div><div class="section-title">Consulta em andamento — Maria Rocha</div><div class="section-sub">Retorno · 07 mai 2026 · 10:30</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" onclick="alert('Link Google Meet gerado: meet.google.com/abc-defg-hij')"><i class="ph-bold ph-video-camera"></i>Gerar link Google Meet</button>
+      <button class="btn btn-primary"><i class="ph-bold ph-check"></i>Finalizar consulta</button>
+    </div>
+  </div>
+  <div class="consult-layout">
+    <div class="consult-main">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:12px">Atualizar métricas da consulta</div>
+        <div class="form-grid cols-3">
+          <div class="form-field"><label class="field-label">Peso (kg)</label><input type="number" class="field-input" value="82.3"/></div>
+          <div class="form-field"><label class="field-label">Cintura (cm)</label><input type="number" class="field-input" value="92"/></div>
+          <div class="form-field"><label class="field-label">Glicemia (mg/dL)</label><input type="number" class="field-input" value="118"/></div>
+          <div class="form-field"><label class="field-label">% Gordura</label><input type="number" class="field-input" value="34.2"/></div>
+          <div class="form-field"><label class="field-label">Energia (1–5)</label><input type="number" class="field-input" value="3" min="1" max="5"/></div>
+          <div class="form-field"><label class="field-label">HbA1c (%)</label><input type="number" class="field-input" value="7.2" step="0.1"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Protocolo CPANEM</div><button class="btn btn-secondary btn-sm"><i class="ph-bold ph-magnifying-glass"></i>Buscar protocolo</button></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--teal-l);border-radius:10px;margin-bottom:12px">
+          <i class="ph-bold ph-shield-check" style="color:var(--teal);font-size:22px"></i>
+          <div><div style="font-size:13px;font-weight:700;color:var(--carbon)">Resistência Insulínica — Protocolo CPANEM v3.1</div><div style="font-size:11px;color:var(--slate)">Validado por Dra. Ivana Mariah · Aplicado desde jan/2026</div></div>
+          <span class="badge badge-teal" style="margin-left:auto">Ativo</span>
+        </div>
+        <div style="font-size:12px;color:var(--slate);line-height:1.7">Conduta atual: Low Carb 1.600kcal · Berberina 500mg 2×/dia · Ômega-3 2g/dia · Vitamina D 5.000UI · Caminhada 30min 3×/semana</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:12px">Evolução clínica desta consulta</div>
+        <div class="editor-toolbar">
+          <button class="editor-btn"><b>B</b></button><button class="editor-btn"><i>I</i></button><button class="editor-btn">H1</button><button class="editor-btn"><i class="ph-bold ph-list"></i></button>
+        </div>
+        <div class="editor-area" contenteditable="true">Paciente refere boa adesão ao plano alimentar. Peso reduziu 1,5kg em relação ao último retorno. Glicemia de jejum estável em 118mg/dL. Mantido protocolo atual. Solicito novo hemograma e HbA1c em 60 dias.</div>
+        <button class="btn btn-primary" style="margin-top:10px"><i class="ph-bold ph-check"></i>Salvar evolução no prontuário</button>
+      </div>
+    </div>
+    <div class="consult-side">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:12px">Gerar prescrição</div>
+        <div class="form-field" style="margin-bottom:10px"><label class="field-label">Template</label><select class="field-select"><option>Prescrição Suplementação — DM2</option><option>Plano alimentar Low Carb 1600kcal</option><option>Em branco</option></select></div>
+        <button class="btn btn-primary" style="width:100%;margin-bottom:8px" onclick="showPage('prescricoes')"><i class="ph-bold ph-notepad"></i>Criar prescrição</button>
+        <button class="btn btn-secondary" style="width:100%"><i class="ph-bold ph-file-pdf"></i>Exportar PDF</button>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:10px">Calculadora rápida</div>
+        <div class="form-field" style="margin-bottom:8px"><label class="field-label">Calculadora</label><select class="field-select" onchange="document.getElementById('quick-calc-result').textContent='—'"><option>IMC</option><option>Harris-Benedict</option><option>FC Máxima (Tanaka)</option></select></div>
+        <div class="form-grid cols-2" style="margin-bottom:8px">
+          <div class="form-field"><label class="field-label">Peso (kg)</label><input type="number" class="field-input" id="qc-peso" value="82.3" oninput="quickCalc()"/></div>
+          <div class="form-field"><label class="field-label">Altura (m)</label><input type="number" class="field-input" id="qc-altura" value="1.64" step="0.01" oninput="quickCalc()"/></div>
+        </div>
+        <div style="background:var(--off);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--teal);font-family:'Fira Code',monospace" id="quick-calc-result">30,6</div>
+          <div style="font-size:11px;color:var(--slate)">IMC — Obesidade G1</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:10px">Histórico resumido</div>
+        <div class="tl-item" style="padding-bottom:10px"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">22 abr 2026</div><div class="tl-title">Retorno — Peso: 83,5kg</div></div></div>
+        <div class="tl-item" style="padding-bottom:10px"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">25 mar 2026</div><div class="tl-title">Retorno — HbA1c 7,6%</div></div></div>
+        <div class="tl-item" style="padding-bottom:0"><div class="tl-dot"></div><div class="tl-body"><div class="tl-date">10 jan 2026</div><div class="tl-title">1ª consulta — Peso: 87kg</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: AGENDA ═══ -->
+<div class="page" id="page-agenda">
+  <div class="section-header">
+    <div><div class="section-title">Agenda</div><div class="section-sub">Semana de 05–09 de maio de 2026</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-caret-left"></i></button>
+      <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-caret-right"></i></button>
+      <button class="btn btn-primary btn-sm"><i class="ph-bold ph-plus"></i>Nova consulta</button>
+    </div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="cal-grid">
+      <div class="cal-day-header">SEG 05</div><div class="cal-day-header">TER 06</div><div class="cal-day-header">QUA 07</div><div class="cal-day-header">QUI 08</div><div class="cal-day-header">SEX 09</div>
+      <div class="cal-day"><div class="cal-event cal-event-teal">09:00 — Carlos M.<br><span style="font-size:10px">Retorno · Presencial</span></div><div class="cal-event cal-event-violet">14:00 — Ana B.<br><span style="font-size:10px">1ª consulta</span></div></div>
+      <div class="cal-day"><div class="cal-event cal-event-teal">10:00 — João F.<br><span style="font-size:10px">Retorno · Presencial</span></div><div class="cal-event cal-event-amber">16:30 — Pedro L.<br><span style="font-size:10px">Retorno · Online</span></div></div>
+      <div class="cal-day" style="background:rgba(26,154,122,.04)"><div class="cal-event cal-event-teal">09:00 — Carlos M.<br><span style="font-size:10px">Retorno</span></div><div class="cal-event cal-event-violet">10:30 — Maria R.<br><span style="font-size:10px">Retorno · Online</span></div><div class="cal-event cal-event-teal">14:00 — João F.<br><span style="font-size:10px">1ª consulta</span></div><div class="cal-event cal-event-teal">15:30 — Ana B.<br><span style="font-size:10px">Retorno</span></div><div class="cal-event cal-event-violet">17:00 — Pedro L.<br><span style="font-size:10px">Online</span></div></div>
+      <div class="cal-day"><div class="cal-event cal-event-teal">11:00 — Fernanda C.<br><span style="font-size:10px">1ª consulta</span></div></div>
+      <div class="cal-day"><div class="cal-event cal-event-teal">09:30 — Roberto A.<br><span style="font-size:10px">Retorno</span></div><div class="cal-event cal-event-amber">14:00 — Marina P.<br><span style="font-size:10px">Online</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: PRESCRIÇÕES ═══ -->
+<div class="page" id="page-prescricoes">
+  <div class="section-header">
+    <div><div class="section-title">Prescrições</div><div class="section-sub">Crie, gerencie e exporte prescrições</div></div>
+    <button class="btn btn-primary"><i class="ph-bold ph-plus"></i>Nova prescrição</button>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Criar prescrição</div>
+      <div class="form-field" style="margin-bottom:10px"><label class="field-label">Paciente</label><select class="field-select"><option>Maria Rocha</option><option>Carlos Menezes</option><option>Ana Beatriz</option></select></div>
+      <div class="form-field" style="margin-bottom:10px"><label class="field-label">Template CPANEM</label><select class="field-select"><option>Prescrição Suplementação — DM2</option><option>Plano alimentar Low Carb 1600kcal</option><option>Em branco</option></select></div>
+      <div style="font-size:12px;font-weight:700;color:var(--carbon);margin:14px 0 8px">Suplementos prescritos</div>
+      <div class="rx-item"><div><div class="rx-name">Berberina</div><div class="rx-dose">500mg · 2× ao dia · Antes das refeições</div></div><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-x"></i></button></div>
+      <div class="rx-item"><div><div class="rx-name">Ômega-3</div><div class="rx-dose">2.000mg · 1× ao dia · Com refeição</div></div><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-x"></i></button></div>
+      <div class="rx-item"><div><div class="rx-name">Vitamina D3</div><div class="rx-dose">5.000UI · 1× ao dia · Com refeição</div></div><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-x"></i></button></div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:8px"><i class="ph-bold ph-plus"></i>Adicionar item</button>
+      <div class="form-field" style="margin-top:14px"><label class="field-label">Observações clínicas</label><textarea class="field-textarea" placeholder="Orientações, restrições, observações...">Manter dieta Low Carb com máximo 80g CHO/dia. Reavaliação em 60 dias com hemograma e HbA1c.</textarea></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn btn-primary" style="flex:1"><i class="ph-bold ph-floppy-disk"></i>Salvar prescrição</button>
+        <button class="btn btn-secondary"><i class="ph-bold ph-file-pdf"></i>PDF</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Histórico de prescrições</div></div>
+      <table class="data-table">
+        <thead><tr><th>Data</th><th>Paciente</th><th>Tipo</th><th></th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">22 abr 2026</td><td style="font-weight:700">Maria Rocha</td><td><span class="badge badge-teal">Suplementação DM2</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">18 abr 2026</td><td style="font-weight:700">Carlos Menezes</td><td><span class="badge badge-violet">Plano alimentar</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">10 abr 2026</td><td style="font-weight:700">Ana Beatriz</td><td><span class="badge badge-amber">Suplementação Lípídeos</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: ENVIO DE CONTEÚDO ═══ -->
+<div class="page" id="page-envio-conteudo">
+  <div class="section-header">
+    <div><div class="section-title">Envio de Conteúdo</div><div class="section-sub">Envie materiais por e-mail para seus pacientes</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Novo envio</div>
+      <div class="form-field" style="margin-bottom:10px">
+        <label class="field-label">Destinatários</label>
+        <select class="field-select"><option>Todos os pacientes (47)</option><option>Pacientes com DM2</option><option>Pacientes com Obesidade</option><option>Selecionar individualmente</option></select>
+      </div>
+      <div class="form-field" style="margin-bottom:10px"><label class="field-label">Assunto do e-mail</label><input type="text" class="field-input" placeholder="Ex: Dicas nutricionais de maio"/></div>
+      <div class="form-field" style="margin-bottom:10px">
+        <label class="field-label">Mensagem</label>
+        <textarea class="field-textarea" style="min-height:100px" placeholder="Escreva sua mensagem aqui...">Prezado(a) paciente,&#10;&#10;Segue em anexo o material que preparei para você.</textarea>
+      </div>
+      <div class="upload-zone" style="margin-bottom:12px">
+        <i class="ph-bold ph-paperclip" style="font-size:24px;color:var(--gray);margin-bottom:6px;display:block"></i>
+        <div style="font-size:13px;font-weight:700">Anexar PDF ou arquivo</div>
+        <div style="font-size:11px;color:var(--gray)">Ou cole um link externo abaixo</div>
+      </div>
+      <div class="form-field" style="margin-bottom:14px"><label class="field-label">Link externo (opcional)</label><input type="url" class="field-input" placeholder="https://..."/></div>
+      <button class="btn btn-primary" style="width:100%"><i class="ph-bold ph-paper-plane-tilt"></i>Enviar por e-mail</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Histórico de envios</div></div>
+      <table class="data-table">
+        <thead><tr><th>Data</th><th>Assunto</th><th>Dest.</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-size:11px;font-family:'Fira Code',monospace">30 abr</td><td style="font-weight:700;font-size:12px">Resultados de exames</td><td>1</td><td><span class="badge badge-sage">Enviado</span></td></tr>
+          <tr><td style="font-size:11px;font-family:'Fira Code',monospace">25 abr</td><td style="font-weight:700;font-size:12px">Plano alimentar maio</td><td>12</td><td><span class="badge badge-sage">Enviado</span></td></tr>
+          <tr><td style="font-size:11px;font-family:'Fira Code',monospace">15 abr</td><td style="font-weight:700;font-size:12px">Aviso — recesso feriado</td><td>47</td><td><span class="badge badge-sage">Enviado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: ÁREA CPANEM ═══ -->
+<div class="page" id="page-area-cpanem">
+  <div class="section-header">
+    <div><div class="section-title">Área CPANEM</div><div class="section-sub">Benefícios exclusivos da rede · Dra. Ivana Mariah</div></div>
+    <span class="badge badge-violet" style="font-size:13px;padding:6px 14px">94% de adoção</span>
+  </div>
+  <div class="tab-row">
+    <div class="tab active" onclick="showCpanemTab('chat')">Chat com Dra. Ivana</div>
+    <div class="tab" onclick="showCpanemTab('biblioteca')">Biblioteca</div>
+    <div class="tab" onclick="showCpanemTab('calcs')">Calculadoras</div>
+    <div class="tab" onclick="showCpanemTab('taco')">Tabela TACO</div>
+  </div>
+
+  <!-- Chat -->
+  <div id="cpanem-chat" class="chat-wrap" style="height:calc(100vh - 220px)">
+    <div class="chat-main">
+      <div class="chat-header"><div class="avatar av-teal">IV</div><div><div style="font-size:14px;font-weight:700">Dra. Ivana Mariah</div><div style="font-size:11px;color:var(--slate)">Nutróloga Chefe · CPANEM</div></div></div>
+      <div class="chat-messages">
+        <div class="chat-msg incoming">Bom dia, Dr. Rafael! Como está indo com os protocolos de RI?<div class="chat-msg-time">Seg, 08:12</div></div>
+        <div class="chat-msg outgoing">Dra. Ivana, bom dia! Muito bem. Estou com uma dúvida sobre berberina para pacientes com HbA1c acima de 8%. Qual a sua recomendação?<div class="chat-msg-time">Seg, 08:45</div></div>
+        <div class="chat-msg incoming">Para HbA1c &gt; 8%, inicio com 500mg 2×/dia por 4 semanas antes de subir a dose. Vou atualizar o protocolo com essa orientação ainda hoje.<div class="chat-msg-time">Seg, 09:02</div></div>
+        <div class="chat-msg outgoing">Perfeito! Muito obrigado pela orientação, Dra. Ivana.<div class="chat-msg-time">Seg, 09:10</div></div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" placeholder="Escreva sua mensagem para a Dra. Ivana..."/>
+        <button class="btn btn-primary btn-icon"><i class="ph-bold ph-paper-plane-tilt"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biblioteca -->
+  <div id="cpanem-biblioteca" style="display:none">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Biblioteca CPANEM</div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--teal-l)"><i class="ph-bold ph-file-pdf" style="color:var(--teal);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Protocolo — Resistência Insulínica v3.1</div><div class="feed-meta">Dra. Ivana Mariah · 02 mai 2026</div><div class="feed-preview">Conduta atualizada para manejo de RI com foco em intervenção nutricional e suplementação baseada em evidências.</div><div style="margin-top:8px"><button class="btn btn-primary btn-sm"><i class="ph-bold ph-download-simple"></i>Download</button></div></div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--violet-l)"><i class="ph-bold ph-article" style="color:var(--violet);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Artigo OMS — Microbiota e metabolismo</div><div class="feed-meta">Dra. Ivana Mariah · 28 abr 2026</div><div class="feed-preview">Revisão sistemática sobre o papel da microbiota intestinal no controle glicêmico e resistência insulínica.</div><div style="margin-top:8px"><button class="btn btn-primary btn-sm"><i class="ph-bold ph-download-simple"></i>Download</button></div></div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-icon-wrap" style="background:var(--amber-l)"><i class="ph-bold ph-clipboard-text" style="color:var(--amber);font-size:20px"></i></div>
+        <div class="feed-body"><div class="feed-title">Plano alimentar — Low Carb Adaptado 1600kcal</div><div class="feed-meta">Dra. Ivana Mariah · 20 abr 2026</div><div class="feed-preview">Modelo semanal completo para objetivo de emagrecimento com controle glicêmico.</div><div style="margin-top:8px"><button class="btn btn-primary btn-sm"><i class="ph-bold ph-download-simple"></i>Download</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculadoras -->
+  <div id="cpanem-calcs" style="display:none">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Calculadoras CPANEM</div>
+      <div class="calc-grid">
+        <div class="calc-card active" onclick="showProfCalc('fib4p')"><div class="calc-name">FIB-4</div><div class="calc-desc">Score de fibrose hepática</div></div>
+        <div class="calc-card" onclick="showProfCalc('hbp')"><div class="calc-name">Harris-Benedict</div><div class="calc-desc">Gasto energético basal</div></div>
+        <div class="calc-card" onclick="showProfCalc('imcp')"><div class="calc-name">IMC</div><div class="calc-desc">Índice de massa corporal</div></div>
+        <div class="calc-card" onclick="showProfCalc('tanakap')"><div class="calc-name">FC Máxima — Tanaka</div><div class="calc-desc">208 − (0,7 × idade)</div></div>
+        <div class="calc-card" onclick="showProfCalc('riscop')"><div class="calc-name">Risco Metabólico</div><div class="calc-desc">Circunferência + RCQ</div></div>
+        <div class="calc-card" onclick="showProfCalc('macrosp')"><div class="calc-name">Distribuição de Macros</div><div class="calc-desc">CHO · PTN · LIP</div></div>
+      </div>
+      <!-- FIB-4 panel for prof -->
+      <div class="calc-panel visible" id="calc-fib4p">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">FIB-4 — Score de fibrose hepática</div>
+        <div class="form-grid cols-3" style="margin-bottom:12px">
+          <div class="form-field"><label class="field-label">Idade</label><input type="number" class="field-input" id="fib-p-idade" placeholder="52" oninput="calcFib4p()"/></div>
+          <div class="form-field"><label class="field-label">AST (U/L)</label><input type="number" class="field-input" id="fib-p-ast" placeholder="38" oninput="calcFib4p()"/></div>
+          <div class="form-field"><label class="field-label">ALT (U/L)</label><input type="number" class="field-input" id="fib-p-alt" placeholder="42" oninput="calcFib4p()"/></div>
+          <div class="form-field"><label class="field-label">Plaquetas (10⁹/L)</label><input type="number" class="field-input" id="fib-p-plaq" placeholder="220" oninput="calcFib4p()"/></div>
+        </div>
+        <div class="calc-result"><div class="calc-result-value" id="fib4p-value">—</div><div class="calc-result-label" id="fib4p-class">Preencha os campos</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TACO -->
+  <div id="cpanem-taco" style="display:none">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Tabela TACO — Banco de alimentos</div>
+      <div class="taco-search">
+        <i class="ph-bold ph-magnifying-glass" style="color:var(--gray);font-size:18px"></i>
+        <input type="text" placeholder="Buscar alimento... (ex: quinoa, arroz integral, frango)" id="taco-search" oninput="filterTaco()"/>
+      </div>
+      <table class="data-table" id="taco-table">
+        <thead><tr><th>Alimento</th><th>Porção</th><th>Energia (kcal)</th><th>CHO (g)</th><th>PTN (g)</th><th>LIP (g)</th><th>Fibras (g)</th></tr></thead>
+        <tbody id="taco-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: BILLING ═══ -->
+<div class="page" id="page-billing">
+  <div class="section-title" style="margin-bottom:20px">Billing — Assinatura da plataforma</div>
+  <div class="two-col">
+    <div>
+      <div class="billing-card" style="margin-bottom:16px">
+        <div class="billing-plan">CPANEM Pro</div>
+        <div class="billing-price">R$ 197</div>
+        <div class="billing-period">/mês · Renovação em 07/jun/2026</div>
+        <div style="display:flex;gap:10px">
+          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600">Prontuário ilimitado</div>
+          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600">Calculadoras CPANEM</div>
+          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600">Biblioteca + Chat</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:14px">Cartão de cobrança</div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--off);border-radius:10px">
+          <i class="ph-bold ph-credit-card" style="font-size:24px;color:var(--teal)"></i>
+          <div><div style="font-size:13px;font-weight:700">Visa •••• 4521</div><div style="font-size:11px;color:var(--gray)">Vence 09/27</div></div>
+          <button class="btn btn-secondary btn-sm" style="margin-left:auto">Alterar</button>
+        </div>
+        <button class="btn btn-secondary" style="margin-top:14px;width:100%;color:var(--red)"><i class="ph-bold ph-x-circle"></i>Cancelar assinatura</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Histórico de pagamentos</div></div>
+      <table class="data-table">
+        <thead><tr><th>Data</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">07 mai 2026</td><td style="font-weight:700">R$ 197,00</td><td><span class="badge badge-sage">Pago</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">07 abr 2026</td><td style="font-weight:700">R$ 197,00</td><td><span class="badge badge-sage">Pago</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+          <tr><td style="font-family:'Fira Code',monospace;font-size:12px">07 mar 2026</td><td style="font-weight:700">R$ 197,00</td><td><span class="badge badge-sage">Pago</span></td><td><button class="btn btn-ghost btn-sm"><i class="ph-bold ph-file-pdf"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROF: CONFIGURAÇÕES ═══ -->
+<div class="page" id="page-configuracoes-prof">
+  <div class="section-title" style="margin-bottom:20px">Configurações</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Perfil profissional</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+        <div style="width:64px;height:64px;background:var(--violet);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff">RC</div>
+        <button class="btn btn-secondary btn-sm"><i class="ph-bold ph-camera"></i>Alterar foto</button>
+      </div>
+      <div class="form-grid cols-2">
+        <div class="form-field"><label class="field-label">Nome completo</label><input type="text" class="field-input" value="Dr. Rafael Costa"/></div>
+        <div class="form-field"><label class="field-label">CRM</label><input type="text" class="field-input" value="CRM-SP 134.892" style="font-family:'Fira Code',monospace"/></div>
+        <div class="form-field"><label class="field-label">Especialidade</label><input type="text" class="field-input" value="Nutrologia"/></div>
+        <div class="form-field"><label class="field-label">Telefone</label><input type="text" class="field-input" value="(11) 99123-4567"/></div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px"><i class="ph-bold ph-check"></i>Salvar alterações</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">Segurança</div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">Senha atual</label><input type="password" class="field-input" value="••••••••"/></div>
+      <div class="form-field" style="margin-bottom:12px"><label class="field-label">Nova senha</label><input type="password" class="field-input"/></div>
+      <div class="form-field" style="margin-bottom:20px"><label class="field-label">Confirmar senha</label><input type="password" class="field-input"/></div>
+      <button class="btn btn-primary"><i class="ph-bold ph-lock"></i>Atualizar senha</button>
+    </div>
+  </div>
+</div>
+
+    </div><!-- /content-area -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ── STATE ──
+let currentRole = 'admin';
+let currentPage = 'dashboard-admin';
+
+// ── LOGIN ROLE SELECTION ──
+function selectRole(role){
+  currentRole = role;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const emailInput = document.getElementById('login-email');
+  const hint = document.getElementById('login-email-hint');
+  if(role==='admin'){
+    emailInput.value='ivana@cpanem.com.br';
+    hint.textContent='ivana@cpanem.com.br';
+  } else {
+    emailInput.value='dr.rafael@nutrologia.com.br';
+    hint.textContent='dr.rafael@nutrologia.com.br';
+  }
+}
+
+// ── LOGIN ──
+function doLogin(){
+  document.getElementById('login-screen').style.display='none';
+  const app = document.getElementById('app');
+  app.classList.add('visible');
+  if(currentRole==='admin'){
+    document.getElementById('nav-admin').style.display='flex';
+    document.getElementById('nav-prof').style.display='none';
+    document.getElementById('sb-instance-label').textContent='MIND: CPANEM';
+    document.getElementById('sb-avatar').textContent='IV';
+    document.getElementById('sb-user-name').textContent='Dra. Ivana Mariah';
+    document.getElementById('sb-user-role').textContent='Admin CPANEM';
+    document.getElementById('topbar-avatar').textContent='IV';
+    document.getElementById('role-badge').className='role-indicator role-admin';
+    document.getElementById('role-badge').textContent='Admin CPANEM';
+    showPage('dashboard-admin');
+  } else {
+    document.getElementById('nav-admin').style.display='none';
+    document.getElementById('nav-prof').style.display='flex';
+    document.getElementById('sb-instance-label').textContent='CPANEM · Profissional';
+    document.getElementById('sb-avatar').textContent='RC';
+    document.getElementById('sb-user-name').textContent='Dr. Rafael Costa';
+    document.getElementById('sb-user-role').textContent='Nutrologia · CPANEM';
+    document.getElementById('topbar-avatar').textContent='RC';
+    document.getElementById('role-badge').className='role-indicator role-prof';
+    document.getElementById('role-badge').textContent='Profissional';
+    showPage('dashboard-prof');
+  }
+}
+
+// ── LOGOUT ──
+function doLogout(){
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('login-screen').style.display='flex';
+}
+
+// ── NAVIGATION ──
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target = document.getElementById('page-'+pageId);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(i=>{
+    if(i.getAttribute('onclick') && i.getAttribute('onclick').includes(pageId)) i.classList.add('active');
+  });
+  const titles = {
+    'dashboard-admin':'Dashboard','rede-prof':'Rede de Profissionais','distribuicao':'Distribuição de Conteúdo',
+    'templates-admin':'Templates CPANEM','calculadoras':'Calculadoras CPANEM','comunicacao-admin':'Comunicação',
+    'analytics-admin':'Analytics / Adoção','convites':'Convites','configuracoes-admin':'Configurações',
+    'dashboard-prof':'Dashboard','pacientes':'Pacientes','prontuario':'Prontuário','exames':'Exames',
+    'consulta':'Consulta em Andamento','agenda':'Agenda','prescricoes':'Prescrições',
+    'envio-conteudo':'Envio de Conteúdo','area-cpanem':'Área CPANEM','billing':'Billing','configuracoes-prof':'Configurações'
+  };
+  document.getElementById('topbar-title').textContent = titles[pageId] || pageId;
+  currentPage = pageId;
+}
+
+// ── CPANEM TABS ──
+function showCpanemTab(tab){
+  ['chat','biblioteca','calcs','taco'].forEach(t=>{
+    const el = document.getElementById('cpanem-'+t);
+    if(el) el.style.display = t===tab ? (t==='chat'?'flex':'block') : 'none';
+  });
+  document.querySelectorAll('#page-area-cpanem .tab').forEach((t,i)=>{
+    t.classList.toggle('active', ['chat','biblioteca','calcs','taco'][i]===tab);
+  });
+  if(tab==='taco') renderTaco(tacoData);
+}
+
+// ── CALC PANELS (admin) ──
+function showCalc(id){
+  document.querySelectorAll('.calc-panel').forEach(p=>p.classList.remove('visible'));
+  const p = document.getElementById('calc-'+id);
+  if(p) p.classList.add('visible');
+  document.querySelectorAll('#page-calculadoras .calc-card').forEach(c=>c.classList.remove('active'));
+  if(event && event.target){
+    let card = event.target;
+    while(card && !card.classList.contains('calc-card')) card=card.parentElement;
+    if(card) card.classList.add('active');
+  }
+}
+
+// ── CALC PANELS (prof area-cpanem) ──
+function showProfCalc(id){
+  document.querySelectorAll('#cpanem-calcs .calc-panel').forEach(p=>p.classList.remove('visible'));
+  const p = document.getElementById('calc-'+id);
+  if(p) p.classList.add('visible');
+  document.querySelectorAll('#cpanem-calcs .calc-card').forEach(c=>c.classList.remove('active'));
+  if(event && event.target){
+    let card = event.target;
+    while(card && !card.classList.contains('calc-card')) card=card.parentElement;
+    if(card) card.classList.add('active');
+  }
+}
+
+// ── FIB-4 CALC ──
+function calcFib4(){
+  const i=+document.getElementById('fib-idade').value;
+  const ast=+document.getElementById('fib-ast').value;
+  const alt=+document.getElementById('fib-alt').value;
+  const plaq=+document.getElementById('fib-plaq').value;
+  if(!i||!ast||!alt||!plaq) return;
+  const score = (i*ast)/(plaq*Math.sqrt(alt));
+  const v = document.getElementById('fib4-value');
+  const c = document.getElementById('fib4-class');
+  v.textContent = score.toFixed(2);
+  if(score<1.30){c.textContent='F0–F1 — Fibrose ausente ou mínima';c.style.color='var(--sage)';}
+  else if(score<=2.67){c.textContent='F1–F3 — Zona de incerteza';c.style.color='var(--amber)';}
+  else{c.textContent='F4 — Alta probabilidade de cirrose';c.style.color='var(--red)';}
+}
+function calcFib4p(){
+  const i=+document.getElementById('fib-p-idade').value;
+  const ast=+document.getElementById('fib-p-ast').value;
+  const alt=+document.getElementById('fib-p-alt').value;
+  const plaq=+document.getElementById('fib-p-plaq').value;
+  if(!i||!ast||!alt||!plaq) return;
+  const score = (i*ast)/(plaq*Math.sqrt(alt));
+  const v = document.getElementById('fib4p-value');
+  const c = document.getElementById('fib4p-class');
+  v.textContent = score.toFixed(2);
+  if(score<1.30){c.textContent='F0–F1 — Fibrose ausente ou mínima';c.style.color='var(--sage)';}
+  else if(score<=2.67){c.textContent='F1–F3 — Zona de incerteza';c.style.color='var(--amber)';}
+  else{c.textContent='F4 — Alta probabilidade de cirrose';c.style.color='var(--red)';}
+}
+
+// ── IMC QUICK CALC ──
+function quickCalc(){
+  const p=+document.getElementById('qc-peso').value;
+  const h=+document.getElementById('qc-altura').value;
+  if(!p||!h) return;
+  const imc=p/(h*h);
+  document.getElementById('quick-calc-result').textContent=imc.toFixed(1);
+}
+
+// ── TACO DATA ──
+const tacoData=[
+  {nome:'Arroz branco cozido',porcao:'100g',kcal:128,cho:28.1,ptn:2.5,lip:0.2,fib:1.6},
+  {nome:'Arroz integral cozido',porcao:'100g',kcal:124,cho:25.8,ptn:2.6,lip:1.0,fib:2.7},
+  {nome:'Feijão carioca cozido',porcao:'100g',kcal:76,cho:13.6,ptn:4.8,lip:0.5,fib:8.4},
+  {nome:'Frango peito grelhado',porcao:'100g',kcal:159,cho:0.0,ptn:32.0,lip:3.2,fib:0.0},
+  {nome:'Ovo de galinha cozido',porcao:'50g (1 und)',kcal:75,cho:0.6,ptn:6.3,lip:5.1,fib:0.0},
+  {nome:'Azeite de oliva extra virgem',porcao:'13g (1 col sopa)',kcal:113,cho:0.0,ptn:0.0,lip:13.0,fib:0.0},
+  {nome:'Banana nanica',porcao:'87g (1 und méd)',kcal:92,cho:23.8,ptn:1.3,lip:0.1,fib:1.9},
+  {nome:'Maçã',porcao:'130g (1 und méd)',kcal:68,cho:17.9,ptn:0.3,lip:0.3,fib:2.0},
+  {nome:'Batata doce cozida',porcao:'100g',kcal:77,cho:17.3,ptn:1.4,lip:0.1,fib:2.2},
+  {nome:'Aveia em flocos',porcao:'30g (3 col sopa)',kcal:110,cho:19.7,ptn:3.8,lip:2.0,fib:2.8},
+  {nome:'Quinoa cozida',porcao:'100g',kcal:120,cho:21.3,ptn:4.4,lip:1.9,fib:2.8},
+  {nome:'Salmão grelhado',porcao:'100g',kcal:208,cho:0.0,ptn:20.4,lip:13.4,fib:0.0},
+  {nome:'Atum em conserva',porcao:'100g',kcal:130,cho:0.0,ptn:29.0,lip:1.4,fib:0.0},
+  {nome:'Brócolis cozido',porcao:'100g',kcal:25,cho:3.2,ptn:2.9,lip:0.4,fib:2.5},
+  {nome:'Espinafre cru',porcao:'100g',kcal:18,cho:1.4,ptn:2.2,lip:0.4,fib:2.2},
+  {nome:'Iogurte natural integral',porcao:'170g (1 pote)',kcal:112,cho:12.0,ptn:5.5,lip:5.1,fib:0.0},
+  {nome:'Whey protein (pó)',porcao:'30g (1 scoop)',kcal:118,cho:3.0,ptn:23.0,lip:2.0,fib:0.0},
+  {nome:'Azeite de coco',porcao:'13g (1 col sopa)',kcal:116,cho:0.0,ptn:0.0,lip:13.0,fib:0.0},
+  {nome:'Grão-de-bico cozido',porcao:'100g',kcal:164,cho:27.4,ptn:8.9,lip:2.6,fib:6.2},
+  {nome:'Lentilha cozida',porcao:'100g',kcal:93,cho:15.6,ptn:6.3,lip:0.5,fib:7.9},
+];
+
+function renderTaco(data){
+  const tbody=document.getElementById('taco-body');
+  tbody.innerHTML=data.map(r=>`<tr>
+    <td style="font-weight:700">${r.nome}</td>
+    <td style="color:var(--slate)">${r.porcao}</td>
+    <td style="font-family:'Fira Code',monospace;font-weight:700;color:var(--teal)">${r.kcal}</td>
+    <td style="font-family:'Fira Code',monospace">${r.cho}</td>
+    <td style="font-family:'Fira Code',monospace">${r.ptn}</td>
+    <td style="font-family:'Fira Code',monospace">${r.lip}</td>
+    <td style="font-family:'Fira Code',monospace">${r.fib}</td>
+  </tr>`).join('');
+}
+
+function filterTaco(){
+  const q=document.getElementById('taco-search').value.toLowerCase();
+  const filtered=tacoData.filter(r=>r.nome.toLowerCase().includes(q));
+  renderTaco(filtered);
+}
+
+// Init TACO
+renderTaco(tacoData);
+</script>
+</body>
+</html>
