@@ -386,9 +386,7 @@ html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--off);colo
   <!-- ── SIDEBAR ── -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sb-logo-mark">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
-      </div>
+      <div class="sb-logo-mark" id="sb-logo-mark" style="font-size:13px;font-weight:800;color:#fff;letter-spacing:0">IV</div>
       <div class="sb-logo-text">
         <div class="sb-wordmark">NutriMind</div>
         <div class="sb-instance" id="sb-instance-label">MIND: CPANEM</div>
@@ -1016,12 +1014,6 @@ html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--off);colo
         </tbody>
       </table>
     </div>
-    <div class="card">
-      <div class="card-header"><div class="card-title">Últimos pacientes</div><span class="card-action" onclick="showPage('pacientes')">Ver todos</span></div>
-      <div class="prof-row"><div class="avatar av-teal">MR</div><div class="prof-info"><div class="prof-name">Maria Rocha</div><div class="prof-meta">DM2 · Última consulta: 22 abr</div></div><span class="badge badge-sage">Evoluindo</span></div>
-      <div class="prof-row"><div class="avatar av-violet">CM</div><div class="prof-info"><div class="prof-name">Carlos Menezes</div><div class="prof-meta">Obesidade · Última consulta: 18 abr</div></div><span class="badge badge-teal">Ativo</span></div>
-      <div class="prof-row"><div class="avatar av-amber">AB</div><div class="prof-info"><div class="prof-name">Ana Beatriz</div><div class="prof-meta">Dislipidemia · Última consulta: 10 abr</div></div><span class="badge badge-amber">Atenção</span></div>
-    </div>
   </div>
 </div>
 
@@ -1029,21 +1021,25 @@ html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--off);colo
 <div class="page" id="page-pacientes">
   <div class="section-header">
     <div><div class="section-title">Pacientes</div><div class="section-sub">47 pacientes ativos</div></div>
-    <button class="btn btn-primary"><i class="ph-bold ph-user-plus"></i>Novo paciente</button>
+    <button class="btn btn-primary" onclick="openNovoPacienteModal()"><i class="ph-bold ph-user-plus"></i>Novo paciente</button>
   </div>
   <div class="card">
     <div style="display:flex;gap:10px;margin-bottom:16px">
       <div class="topbar-search" style="flex:1"><i class="ph-bold ph-magnifying-glass" style="color:var(--gray);font-size:15px"></i><input type="text" placeholder="Buscar paciente..."/></div>
-      <select class="field-select" style="width:180px"><option>Todos os status</option><option>Ativo</option><option>Inativo</option><option>Atenção</option></select>
-      <select class="field-select" style="width:200px"><option>Todos os diagnósticos</option><option>DM2</option><option>Obesidade</option><option>Dislipidemia</option></select>
+      <select class="field-select" style="width:160px">
+        <option selected>Ativos</option>
+        <option>Todos</option>
+        <option>Inativos</option>
+      </select>
     </div>
     <table class="data-table">
-      <thead><tr><th>Paciente</th><th>Idade</th><th>Diagnóstico</th><th>Telefone</th><th>Última consulta</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>Paciente</th><th>Diagnóstico</th><th>Última consulta</th><th>Status</th><th></th></tr></thead>
       <tbody>
-        <tr><td><div style="font-weight:700">Maria Rocha</div><div style="font-size:11px;color:var(--gray)">maria.rocha@email.com</div></td><td>48</td><td>DM2 · Obesidade G1</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 98765-4321</td><td>22 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
-        <tr><td><div style="font-weight:700">Carlos Menezes</div><div style="font-size:11px;color:var(--gray)">carlos@email.com</div></td><td>55</td><td>Obesidade G2 · HAS</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 97654-3210</td><td>18 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
-        <tr><td><div style="font-weight:700">Ana Beatriz</div><div style="font-size:11px;color:var(--gray)">ana.b@email.com</div></td><td>39</td><td>Dislipidemia</td><td style="font-family:'Fira Code',monospace;font-size:12px">(11) 96543-2109</td><td>10 abr 2026</td><td><span class="badge badge-amber">Atenção</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
-        <tr><td><div style="font-weight:700">João Ferreira</div><div style="font-size:11px;color:var(--gray)">joao.f@email.com</div></td><td>62</td><td>Pré-diabetes · Obesidade G1</td><td style="font-family:'Fira Code',monospace;font-size:12px">(21) 99876-5432</td><td>05 mai 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')">Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')">Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Maria Rocha</div><div style="font-size:11px;color:var(--gray)">maria.rocha@email.com</div></td><td>DM2 · Obesidade G1</td><td>22 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i> Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i> Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Carlos Menezes</div><div style="font-size:11px;color:var(--gray)">carlos@email.com</div></td><td>Obesidade G2 · HAS</td><td>18 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i> Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i> Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Ana Beatriz</div><div style="font-size:11px;color:var(--gray)">ana.b@email.com</div></td><td>Dislipidemia</td><td>10 abr 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i> Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i> Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">João Ferreira</div><div style="font-size:11px;color:var(--gray)">joao.f@email.com</div></td><td>Pré-diabetes · Obesidade G1</td><td>05 mai 2026</td><td><span class="badge badge-sage">Ativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i> Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i> Consulta</button></div></td></tr>
+        <tr><td><div style="font-weight:700">Pedro Lima</div><div style="font-size:11px;color:var(--gray)">pedro.lima@email.com</div></td><td>Hipertensão</td><td>01 mai 2026</td><td><span class="badge badge-gray">Inativo</span></td><td><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="showPage('prontuario')"><i class="ph-bold ph-folder-open"></i> Prontuário</button><button class="btn btn-ghost btn-sm" onclick="showPage('consulta')"><i class="ph-bold ph-stethoscope"></i> Consulta</button></div></td></tr>
       </tbody>
     </table>
   </div>
@@ -1538,6 +1534,7 @@ function doLogin(){
     document.getElementById('nav-admin').style.display='flex';
     document.getElementById('nav-prof').style.display='none';
     document.getElementById('sb-instance-label').textContent='MIND: CPANEM';
+    document.getElementById('sb-logo-mark').textContent='IV';
     document.getElementById('sb-avatar').textContent='IV';
     document.getElementById('sb-user-name').textContent='Dra. Ivana Mariah';
     document.getElementById('sb-user-role').textContent='Admin CPANEM';
@@ -1549,6 +1546,7 @@ function doLogin(){
     document.getElementById('nav-admin').style.display='none';
     document.getElementById('nav-prof').style.display='flex';
     document.getElementById('sb-instance-label').textContent='CPANEM · Profissional';
+    document.getElementById('sb-logo-mark').textContent='RC';
     document.getElementById('sb-avatar').textContent='RC';
     document.getElementById('sb-user-name').textContent='Dr. Rafael Costa';
     document.getElementById('sb-user-role').textContent='Nutrologia · CPANEM';
@@ -1829,9 +1827,136 @@ function calcPrevent(){
   d.textContent='Estimativa de risco cardiovascular em 10 anos (modelo PREVENT AHA 2023)';
 }
 
-// ── CONVITE MODAL ──
-function openConviteModal(){document.getElementById('modal-convite').style.display='flex';}
-function closeConviteModal(){document.getElementById('modal-convite').style.display='none';}
+// ── NOVO PACIENTE MODAL ──
+function openNovoPacienteModal(){ document.getElementById('modal-novo-paciente').style.display='flex'; }
+function closeNovoPacienteModal(){ document.getElementById('modal-novo-paciente').style.display='none'; }
+function calcIMCModal(){
+  const p=+document.getElementById('np-peso').value;
+  const h=+document.getElementById('np-altura').value;
+  const el=document.getElementById('np-imc');
+  if(p&&h){const imc=(p/((h/100)*(h/100))).toFixed(1);el.value=imc;}else{el.value='';}
+}
+function criarPaciente(){
+  closeNovoPacienteModal();
+  // Show success feedback and navigate to prontuário
+  showPage('prontuario');
+}
+</script>
+
+<!-- ═══ MODAL: NOVO PACIENTE ═══ -->
+<div id="modal-novo-paciente" style="display:none;position:fixed;inset:0;background:rgba(15,24,36,.5);z-index:9000;align-items:flex-start;justify-content:center;overflow-y:auto;padding:32px 16px">
+  <div style="background:var(--white);border-radius:24px;width:700px;max-width:98vw;box-shadow:0 24px 64px rgba(15,24,36,.22);overflow:hidden;margin:auto">
+
+    <!-- Header -->
+    <div style="padding:24px 32px;border-bottom:1px solid var(--silver);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:2">
+      <div>
+        <div style="font-size:17px;font-weight:800;color:var(--carbon)">Novo paciente</div>
+        <div style="font-size:12px;color:var(--slate);margin-top:2px">Cadastro completo para início do acompanhamento clínico</div>
+      </div>
+      <button onclick="closeNovoPacienteModal()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--gray)"><i class="ph-bold ph-x"></i></button>
+    </div>
+
+    <div style="padding:28px 32px;display:flex;flex-direction:column;gap:24px">
+
+      <!-- DADOS BÁSICOS -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Dados básicos <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div class="form-grid cols-2">
+          <div class="form-field" style="grid-column:1/-1"><label class="field-label">Nome completo</label><input type="text" class="field-input" placeholder="Nome do paciente"/></div>
+          <div class="form-field"><label class="field-label">Data de nascimento</label><input type="date" class="field-input"/></div>
+          <div class="form-field"><label class="field-label">Sexo</label><select class="field-select"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option><option>Outro</option></select></div>
+          <div class="form-field"><label class="field-label">CPF</label><input type="text" class="field-input" placeholder="000.000.000-00" style="font-family:'Fira Code',monospace"/></div>
+          <div class="form-field"><label class="field-label">E-mail</label><input type="email" class="field-input" placeholder="paciente@email.com"/></div>
+          <div class="form-field"><label class="field-label">Telefone</label><input type="text" class="field-input" placeholder="(11) 99999-0000"/></div>
+          <div class="form-field"><label class="field-label">WhatsApp</label><input type="text" class="field-input" placeholder="(11) 99999-0000"/></div>
+          <div class="form-field"><label class="field-label">Profissão</label><input type="text" class="field-input" placeholder="Profissão do paciente"/></div>
+          <div class="form-field" style="grid-column:1/-1"><label class="field-label">Endereço</label><input type="text" class="field-input" placeholder="Rua, número, bairro, cidade"/></div>
+        </div>
+      </div>
+
+      <!-- OBJETIVO CLÍNICO -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Objetivo clínico <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="obj-options">
+          <button type="button" class="obj-btn" onclick="toggleObj(this)" style="padding:8px 16px;border:1.5px solid var(--silver);border-radius:20px;background:var(--white);font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .15s">Emagrecimento</button>
+          <button type="button" class="obj-btn" onclick="toggleObj(this)" style="padding:8px 16px;border:1.5px solid var(--silver);border-radius:20px;background:var(--white);font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .15s">Hipertrofia</button>
+          <button type="button" class="obj-btn" onclick="toggleObj(this)" style="padding:8px 16px;border:1.5px solid var(--silver);border-radius:20px;background:var(--white);font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .15s">Controle metabólico</button>
+          <button type="button" class="obj-btn" onclick="toggleObj(this)" style="padding:8px 16px;border:1.5px solid var(--silver);border-radius:20px;background:var(--white);font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .15s">Performance</button>
+          <button type="button" class="obj-btn" onclick="toggleObj(this)" style="padding:8px 16px;border:1.5px solid var(--silver);border-radius:20px;background:var(--white);font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .15s">Outro</button>
+        </div>
+      </div>
+
+      <!-- ANAMNESE RÁPIDA -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Anamnese rápida <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div class="form-grid cols-2">
+          <div class="form-field"><label class="field-label">Doenças pré-existentes</label><textarea class="field-textarea" style="min-height:60px" placeholder="Ex: DM2, hipertensão, hipotireoidismo..."></textarea></div>
+          <div class="form-field"><label class="field-label">Medicamentos em uso</label><textarea class="field-textarea" style="min-height:60px" placeholder="Nome, dosagem e frequência"></textarea></div>
+          <div class="form-field"><label class="field-label">Alergias / intolerâncias</label><input type="text" class="field-input" placeholder="Ex: glúten, lactose, frutos do mar"/></div>
+          <div class="form-field"><label class="field-label">Histórico familiar relevante</label><input type="text" class="field-input" placeholder="Ex: DM, doenças cardiovasculares"/></div>
+        </div>
+      </div>
+
+      <!-- ESTILO DE VIDA -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Estilo de vida <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div class="form-grid cols-2">
+          <div class="form-field"><label class="field-label">Atividade física</label><select class="field-select"><option value="">Selecione</option><option>Sedentário</option><option>Levemente ativo (1–2×/sem)</option><option>Moderadamente ativo (3–4×/sem)</option><option>Muito ativo (5–6×/sem)</option><option>Altamente ativo (diário + intenso)</option></select></div>
+          <div class="form-field"><label class="field-label">Qualidade do sono</label><select class="field-select"><option value="">Selecione</option><option>Bom (7–9h)</option><option>Regular (5–7h)</option><option>Ruim (menos de 5h)</option></select></div>
+          <div class="form-field"><label class="field-label">Consumo de álcool</label><select class="field-select"><option value="">Selecione</option><option>Não consome</option><option>Ocasional</option><option>Regular</option><option>Frequente</option></select></div>
+          <div class="form-field"><label class="field-label">Tabagismo</label><select class="field-select"><option value="">Selecione</option><option>Não fumante</option><option>Ex-fumante</option><option>Fumante atual</option></select></div>
+        </div>
+      </div>
+
+      <!-- DADOS METABÓLICOS -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Dados metabólicos <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div class="form-grid cols-3">
+          <div class="form-field"><label class="field-label">Peso (kg)</label><input type="number" class="field-input" id="np-peso" placeholder="Ex: 78" step="0.1" oninput="calcIMCModal()"/></div>
+          <div class="form-field"><label class="field-label">Altura (cm)</label><input type="number" class="field-input" id="np-altura" placeholder="Ex: 168" oninput="calcIMCModal()"/></div>
+          <div class="form-field"><label class="field-label">IMC <span style="font-size:10px;color:var(--teal);font-weight:600">(calculado automaticamente)</span></label><input type="text" class="field-input" id="np-imc" placeholder="—" readonly style="background:var(--off);color:var(--teal);font-weight:700;font-family:'Fira Code',monospace"/></div>
+          <div class="form-field"><label class="field-label">Circunferência abdominal (cm)</label><input type="number" class="field-input" placeholder="Ex: 92" step="0.5"/></div>
+        </div>
+      </div>
+
+      <!-- UPLOADS -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--slate);margin-bottom:14px;display:flex;align-items:center;gap:8px">Foto e exames <div style="flex:1;height:1px;background:var(--silver)"></div></div>
+        <div class="form-grid cols-2">
+          <div>
+            <div class="field-label" style="margin-bottom:8px">Foto do paciente</div>
+            <div style="border:2px dashed var(--silver);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer" onmouseover="this.style.borderColor='var(--teal)';this.style.background='var(--teal-l)'" onmouseout="this.style.borderColor='var(--silver)';this.style.background='transparent'">
+              <i class="ph-bold ph-user-circle" style="font-size:28px;color:var(--gray);display:block;margin-bottom:6px"></i>
+              <div style="font-size:12px;font-weight:600;color:var(--carbon)">Foto do paciente</div>
+              <div style="font-size:11px;color:var(--gray)">JPG · PNG · até 5MB</div>
+            </div>
+          </div>
+          <div>
+            <div class="field-label" style="margin-bottom:8px">Exames iniciais</div>
+            <div class="form-field" style="margin-bottom:8px"><select class="field-select"><option>Laboratorial</option><option>Hormonal</option><option>Vitaminas</option><option>Metabólico</option><option>Imagem</option><option>Cardiológico</option><option>Outro</option></select></div>
+            <div style="border:2px dashed var(--silver);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer" onmouseover="this.style.borderColor='var(--teal)';this.style.background='var(--teal-l)'" onmouseout="this.style.borderColor='var(--silver)';this.style.background='transparent'">
+              <i class="ph-bold ph-upload-simple" style="font-size:22px;color:var(--gray);display:block;margin-bottom:4px"></i>
+              <div style="font-size:12px;font-weight:600;color:var(--carbon)">PDF ou imagem</div>
+              <div style="font-size:11px;color:var(--gray)">até 50MB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /body -->
+
+    <!-- Footer fixo -->
+    <div style="padding:18px 32px;border-top:1px solid var(--silver);display:flex;gap:10px;position:sticky;bottom:0;background:var(--white)">
+      <button class="btn btn-primary" style="flex:1" onclick="criarPaciente()"><i class="ph-bold ph-user-check"></i>Criar paciente</button>
+      <button class="btn btn-secondary" onclick="closeNovoPacienteModal()">Cancelar</button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.obj-btn.selected{background:var(--teal-l)!important;border-color:var(--teal)!important;color:var(--teal)!important;}
+</style>
 
 // ── TEMPLATE MODAL ──
 function openTemplateModal(){document.getElementById('modal-template').style.display='flex';}
