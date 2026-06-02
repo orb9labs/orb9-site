@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XPDoctor Clinic | Identidade Visual</title>
+  <style>
+    :root {
+      --navy: #142e4c;
+      --teal: #3eabb5;
+      --blue: #288bc5;
+      --mint: #4bb7a9;
+      --black: #000000;
+      --white: #ffffff;
+      --off: #f4f8fb;
+      --ink: #172b40;
+      --muted: #6e8193;
+      --line: rgba(20, 46, 76, 0.12);
+      --shadow: 0 24px 70px rgba(20, 46, 76, 0.16);
+      --display: "Lemon Milk", "Montserrat", "Avenir Next", "Arial Black", system-ui, sans-serif;
+      --body: "DM Sans", "Inter", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      --scroll-progress: 0%;
+      --parallax-y: 0px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--navy);
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--ink);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 20;
+      width: var(--scroll-progress);
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--mint));
+      box-shadow: 0 0 18px rgba(75, 183, 169, 0.6);
+      pointer-events: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      background: var(--white);
+    }
+
+    .cover {
+      min-height: 100svh;
+      padding: 36px clamp(20px, 5vw, 72px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, rgba(20, 46, 76, 0.94), rgba(20, 46, 76, 0.62), rgba(62, 171, 181, 0.16)),
+        url("assets/Backgrounds.png") center / cover no-repeat;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 68% 12%, rgba(75, 183, 169, 0.28), transparent 34%),
+        linear-gradient(135deg, transparent 0%, rgba(40, 139, 197, 0.18) 100%);
+      transform: translate3d(0, calc(var(--parallax-y) * 0.35), 0);
+    }
+
+    .cover__top,
+    .cover__content,
+    .cover__bottom {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover__top,
+    .cover__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .cover__content {
+      max-width: 870px;
+      padding: 74px 0 86px;
+      transform: translate3d(0, calc(var(--parallax-y) * -0.14), 0);
+    }
+
+    .cover__label {
+      margin: 0 0 42px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .cover__logo {
+      width: min(690px, 92vw);
+      margin-bottom: 24px;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.14));
+    }
+
+    .cover h1 {
+      margin: 0;
+      color: var(--white);
+      font-family: var(--display);
+      font-size: clamp(42px, 8vw, 104px);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .cover p {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.6;
+    }
+
+    .cover__bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      padding-top: 22px;
+    }
+
+    .section {
+      padding: clamp(64px, 9vw, 118px) clamp(20px, 5vw, 72px);
+      position: relative;
+    }
+
+    .section--soft {
+      background: var(--off);
+    }
+
+    .section--dark {
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(20, 46, 76, 0.95), rgba(20, 46, 76, 0.76)),
+        url("assets/Backgrounds.png") center / cover no-repeat;
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section__head {
+      display: grid;
+      grid-template-columns: minmax(170px, 260px) minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h2,
+    h3,
+    .display-sample {
+      font-family: var(--display);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: currentColor;
+      font-size: clamp(30px, 4.2vw, 56px);
+      line-height: 1.02;
+    }
+
+    .section__text {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .section--dark .section__text {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .logo-grid,
+    .type-grid,
+    .construction-grid,
+    .usage-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .logo-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .type-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .construction-grid,
+    .usage-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .logo-card,
+    .color-card,
+    .gradient-card,
+    .usage-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 10px 28px rgba(20, 46, 76, 0.05);
+    }
+
+    .logo-stage {
+      min-height: 255px;
+      padding: clamp(28px, 5vw, 54px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo-stage--navy {
+      background: var(--navy);
+    }
+
+    .logo-stage--white {
+      background:
+        linear-gradient(135deg, rgba(62, 171, 181, 0.1), rgba(40, 139, 197, 0.05)),
+        var(--white);
+    }
+
+    .logo-stage--gradient {
+      background: linear-gradient(135deg, var(--teal), var(--mint));
+    }
+
+    .logo-stage--image {
+      background:
+        linear-gradient(90deg, rgba(20, 46, 76, 0.68), rgba(20, 46, 76, 0.24)),
+        url("assets/Backgrounds.png") center / cover no-repeat;
+    }
+
+    .logo-stage img {
+      width: min(600px, 100%);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .logo-stage--compact img {
+      width: min(430px, 96%);
+    }
+
+    .xp-mark {
+      width: min(320px, 78%);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      color: var(--white);
+      font-family: var(--display);
+      font-size: clamp(70px, 13vw, 150px);
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(40, 139, 197, 0.94), rgba(75, 183, 169, 0.94));
+    }
+
+    .app-mark {
+      border-radius: 28%;
+      border: 0;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), var(--shadow);
+    }
+
+    .card-meta {
+      padding: 18px 20px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .card-meta strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .card-meta span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .color-chip {
+      height: 152px;
+      display: flex;
+      align-items: end;
+      padding: 16px;
+      color: var(--white);
+      font-family: var(--display);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .color-card:nth-child(5) .color-chip {
+      color: var(--white);
+    }
+
+    .color-meta,
+    .gradient-meta {
+      padding: 16px;
+    }
+
+    .color-meta b,
+    .gradient-meta b {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .color-meta code,
+    .gradient-meta code {
+      color: var(--muted);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .gradient-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .gradient-sample {
+      height: 148px;
+    }
+
+    .type-hero {
+      min-height: 430px;
+      padding: clamp(34px, 6vw, 62px);
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(20, 46, 76, 0.95), rgba(62, 171, 181, 0.75)),
+        url("assets/Backgrounds.png") center / cover no-repeat;
+    }
+
+    .type-hero .display-sample {
+      margin: 0 0 34px;
+      font-size: clamp(54px, 9vw, 112px);
+      line-height: 0.9;
+    }
+
+    .alphabet,
+    .numbers {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-family: var(--display);
+      font-size: clamp(14px, 2vw, 20px);
+      line-height: 2;
+      letter-spacing: 0.08em;
+      overflow-wrap: anywhere;
+    }
+
+    .numbers {
+      margin-top: 18px;
+      color: rgba(75, 183, 169, 0.95);
+    }
+
+    .type-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .text-card,
+    .construction-card,
+    .usage-card {
+      padding: 26px;
+    }
+
+    .text-card h3,
+    .construction-card h3,
+    .usage-card h3 {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .text-card p,
+    .construction-card p,
+    .usage-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .type-title {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-family: var(--display);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .scale-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .construction-card {
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .construction-token {
+      color: var(--navy);
+      font-family: var(--display);
+      font-size: clamp(40px, 7vw, 78px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .construction-token--gradient {
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .usage-icon {
+      margin-bottom: 16px;
+      color: var(--teal);
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .brand-footer {
+      padding: clamp(54px, 8vw, 92px) clamp(20px, 5vw, 72px);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.72);
+      background: var(--navy);
+    }
+
+    .brand-footer img {
+      width: min(510px, 92vw);
+      margin: 0 auto 24px;
+    }
+
+    .brand-footer p {
+      margin: 8px auto 0;
+      max-width: 760px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 34px, 0);
+      transition:
+        opacity 780ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .reveal[data-effect="scale"] {
+      transform: translate3d(0, 28px, 0) scale(0.96);
+    }
+
+    .reveal[data-effect="scale"].is-visible {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .logo-card,
+    .color-card,
+    .gradient-card,
+    .text-card,
+    .construction-card,
+    .usage-card {
+      transition:
+        opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 260ms ease;
+    }
+
+    .logo-card:hover,
+    .color-card:hover,
+    .gradient-card:hover,
+    .text-card:hover,
+    .construction-card:hover,
+    .usage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal,
+      .logo-card,
+      .color-card,
+      .gradient-card,
+      .text-card,
+      .construction-card,
+      .usage-card,
+      .cover__content,
+      .cover::after {
+        transition: none;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .section__head,
+      .type-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-grid,
+      .construction-grid,
+      .usage-grid,
+      .gradient-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .palette {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .cover {
+        padding-inline: 20px;
+      }
+
+      .cover__top,
+      .cover__bottom {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 0.09em;
+      }
+
+      .cover__top span,
+      .cover__bottom span {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .cover__label {
+        font-size: 10px;
+        letter-spacing: 0.09em;
+      }
+
+      .cover__content {
+        padding: 54px 0 64px;
+      }
+
+      .logo-stage {
+        min-height: 210px;
+      }
+
+      .palette {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="cover">
+      <div class="cover__top reveal">
+        <span>Identidade Visual · Brand Guidelines</span>
+        <span>Brand Book · 2026</span>
+      </div>
+
+      <div class="cover__content">
+        <p class="cover__label reveal" style="--delay: 80ms;">Identidade Visual · Brand Guidelines</p>
+        <img class="cover__logo reveal" style="--delay: 160ms;" data-effect="scale" src="assets/XPDClinic_white.png" alt="XPDoctor Clinic">
+        <h1 class="reveal" style="--delay: 260ms;">Brand Book · 2026</h1>
+        <p class="reveal" style="--delay: 360ms;">Uma plataforma moderna e inovadora que facilita o relacionamento entre médico e paciente.</p>
+      </div>
+
+      <div class="cover__bottom reveal" style="--delay: 440ms;">
+        <span>XPDoctor Clinic</span>
+        <span>Uso interno e parceiros autorizados</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="wrap">
+          <div class="section__head reveal">
+            <p class="eyebrow">01 — Logotipos</p>
+            <div>
+              <h2>Logo & Versões</h2>
+              <p class="section__text">Versões organizadas para fundos escuros, claros, gradientes e aplicações digitais. Os logos principais usam os arquivos oficiais da marca.</p>
+            </div>
+          </div>
+
+          <div class="logo-grid stagger">
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--navy">
+                <img src="assets/XPDClinic_white.png" alt="XPDoctor Clinic branco">
+              </div>
+              <div class="card-meta">
+                <strong>XPDoctor — Versão Principal</strong>
+                <span>Fundo escuro · uso preferencial</span>
+              </div>
+            </article>
+
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--white">
+                <img src="assets/Clinic.png" alt="XPDoctor Clinic colorido">
+              </div>
+              <div class="card-meta">
+                <strong>XPDoctor Clinic — Colorido</strong>
+                <span>Fundo claro · versão colorida</span>
+              </div>
+            </article>
+
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--gradient">
+                <img src="assets/XPDClinic_white.png" alt="XPDoctor Clinic branco monocromático">
+              </div>
+              <div class="card-meta">
+                <strong>XPDoctor — Monocromático Branco</strong>
+                <span>Fundo colorido · versão branca</span>
+              </div>
+            </article>
+
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--image">
+                <img src="assets/XPDClinic_white.png" alt="XPDoctor Clinic branco sobre fundo oficial">
+              </div>
+              <div class="card-meta">
+                <strong>XPDoctor Clinic — Branco</strong>
+                <span>Fundo escuro · versão branca</span>
+              </div>
+            </article>
+
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--compact logo-stage--white">
+                <img src="assets/Clinic.png" alt="XPDoctor Clinic navy em fundo claro">
+              </div>
+              <div class="card-meta">
+                <strong>XPDoctor — Versão Navy</strong>
+                <span>Fundo claro neutro</span>
+              </div>
+            </article>
+
+            <article class="logo-card reveal" data-effect="scale">
+              <div class="logo-stage logo-stage--navy">
+                <div class="xp-mark app-mark" aria-label="Ícone XP">XP</div>
+              </div>
+              <div class="card-meta">
+                <strong>Ícone — Círculo & App Icon</strong>
+                <span>Favicon, avatar, ícone de app</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soft">
+        <div class="wrap">
+          <div class="section__head reveal">
+            <p class="eyebrow">02 — Paleta de Cores</p>
+            <div>
+              <h2>Brand Colors</h2>
+              <p class="section__text">Cores principais alinhadas ao material de identidade original, com gradientes para superfícies digitais, backgrounds e destaques institucionais.</p>
+            </div>
+          </div>
+
+          <div class="palette stagger">
+            <article class="color-card reveal" data-effect="scale">
+              <div class="color-chip" style="background:#142E4C;">NAVY</div>
+              <div class="color-meta"><b>#142E4C</b><code>R:20 · G:46 · B:76<br>Primária</code></div>
+            </article>
+            <article class="color-card reveal" data-effect="scale">
+              <div class="color-chip" style="background:#3EABB5;">TEAL</div>
+              <div class="color-meta"><b>#3EABB5</b><code>R:62 · G:171 · B:181<br>Secundária</code></div>
+            </article>
+            <article class="color-card reveal" data-effect="scale">
+              <div class="color-chip" style="background:#288BC5;">BLUE</div>
+              <div class="color-meta"><b>#288BC5</b><code>R:40 · G:139 · B:197<br>Gradiente</code></div>
+            </article>
+            <article class="color-card reveal" data-effect="scale">
+              <div class="color-chip" style="background:#4BB7A9;">MINT</div>
+              <div class="color-meta"><b>#4BB7A9</b><code>R:75 · G:183 · B:169<br>Acento</code></div>
+            </article>
+            <article class="color-card reveal" data-effect="scale">
+              <div class="color-chip" style="background:#000000;">BLACK</div>
+              <div class="color-meta"><b>#000000</b><code>R:0 · G:0 · B:0<br>Neutro</code></div>
+            </article>
+          </div>
+
+          <div class="gradient-grid stagger">
+            <article class="gradient-card reveal" data-effect="scale">
+              <div class="gradient-sample" style="background:linear-gradient(135deg,#288BC5,#4BB7A9);"></div>
+              <div class="gradient-meta"><b>Gradient Primary</b><code>#288BC5 → #4BB7A9 · 135°</code></div>
+            </article>
+            <article class="gradient-card reveal" data-effect="scale">
+              <div class="gradient-sample" style="background:linear-gradient(135deg,#142E4C,#3EABB5);"></div>
+              <div class="gradient-meta"><b>Gradient Dark</b><code>#142E4C → #3EABB5 · 135°</code></div>
+            </article>
+            <article class="gradient-card reveal" data-effect="scale">
+              <div class="gradient-sample" style="background:linear-gradient(90deg,#3EABB5,#4BB7A9,#288BC5);"></div>
+              <div class="gradient-meta"><b>Gradient Full</b><code>Teal → Mint → Blue · 90°</code></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--dark">
+        <div class="wrap">
+          <div class="section__head reveal">
+            <p class="eyebrow">03 — Tipografia</p>
+            <div>
+              <h2>Fonte Oficial</h2>
+              <p class="section__text">A hierarquia combina uma fonte display forte para marca e títulos com uma fonte de leitura limpa para UI, descrições e textos institucionais.</p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+            <article class="card type-hero reveal" data-effect="scale">
+              <p class="eyebrow">Fonte Principal · Display</p>
+              <p class="display-sample">LEMON<br>MILK</p>
+              <p class="alphabet">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
+              <p class="numbers">0 1 2 3 4 5 6 7 8 9</p>
+            </article>
+
+            <div class="type-stack stagger">
+              <article class="card text-card reveal" data-effect="scale">
+                <h3>Display · LemonMilk 700</h3>
+                <p class="type-title">Saúde Mental Digital</p>
+                <p>USE PARA: Títulos, headings, logotipo, marcas e rótulos institucionais.</p>
+              </article>
+              <article class="card text-card reveal" data-effect="scale">
+                <h3>Body · DM Sans 400/500</h3>
+                <p>Conectando médicos e pacientes com tecnologia segura, humana e eficiente.</p>
+                <p style="margin-top:12px;">USE PARA: Textos corridos, parágrafos, UI, descrições e legendas.</p>
+              </article>
+              <article class="card text-card reveal" data-effect="scale">
+                <h3>Scale · Hierarquia</h3>
+                <div class="scale-list">
+                  <span>H1 — 32px</span>
+                  <span>H2 — 24px</span>
+                  <span>H3 — 16px</span>
+                  <span>Body — 15/16px · DM Sans</span>
+                  <span>LABEL — 11px · tracking wide</span>
+                </div>
+              </article>
+              <article class="card text-card reveal" data-effect="scale">
+                <h3>Combinação Recomendada</h3>
+                <p class="type-title">Sua saúde mental em boas mãos</p>
+                <p>Plataforma digital certificada para médicos e pacientes.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section__head reveal">
+            <p class="eyebrow">04 — Ícone & Construção</p>
+            <div>
+              <h2>Anatomia do Logo</h2>
+              <p class="section__text">Elementos visuais que sustentam reconhecimento: símbolo XP, ponto separador, assinatura Clinic e aplicação completa.</p>
+            </div>
+          </div>
+
+          <div class="construction-grid stagger">
+            <article class="card construction-card reveal" data-effect="scale">
+              <span class="construction-token construction-token--gradient">XP</span>
+              <div>
+                <h3>Símbolo XP</h3>
+                <p>Forma principal para reconhecimento em espaços reduzidos.</p>
+              </div>
+            </article>
+            <article class="card construction-card reveal" data-effect="scale">
+              <span class="construction-token">P</span>
+              <div>
+                <h3>Símbolo P</h3>
+                <p>Curva proprietária que reforça a estrutura do monograma.</p>
+              </div>
+            </article>
+            <article class="card construction-card reveal" data-effect="scale">
+              <span class="construction-token construction-token--gradient">DOT</span>
+              <div>
+                <h3>Ponto separador</h3>
+                <p>Marca o ritmo visual entre símbolo e assinatura verbal.</p>
+              </div>
+            </article>
+            <article class="logo-card reveal" data-effect="scale" style="grid-column: 1 / -1;">
+              <div class="logo-stage logo-stage--white">
+                <img src="assets/Clinic.png" alt="Marca completa XPDoctor Clinic">
+              </div>
+              <div class="card-meta">
+                <strong>Marca completa XP·</strong>
+                <span>Versão prioritária para materiais institucionais, apresentações, documentos e páginas públicas.</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soft">
+        <div class="wrap">
+          <div class="section__head reveal">
+            <p class="eyebrow">05 — Uso Correto</p>
+            <div>
+              <h2>Diretrizes de Aplicação</h2>
+              <p class="section__text">Regras rápidas para manter legibilidade, contraste e consistência em qualquer material da marca.</p>
+            </div>
+          </div>
+
+          <div class="usage-grid stagger">
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">✅</div>
+              <h3>Fundos Permitidos</h3>
+              <p>Navy (#142E4C) · Branco (#FFF) · Gradiente Teal→Mint · Tons claros neutros acima de 90% de luminosidade.</p>
+            </article>
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">🚫</div>
+              <h3>O que Evitar</h3>
+              <p>Não distorcer proporções. Não aplicar sobre fotos sem overlay. Não alterar as cores do gradiente. Não usar versão colorida em fundos escuros que não sejam Navy.</p>
+            </article>
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">📐</div>
+              <h3>Espaço de Proteção</h3>
+              <p>Manter uma área livre equivalente à altura da letra "X" ao redor do logotipo em todas as direções.</p>
+            </article>
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">📏</div>
+              <h3>Tamanho Mínimo</h3>
+              <p>Digital: 120px de largura mínima. Impresso: 30mm de largura mínima. Abaixo disso, usar apenas o ícone XP.</p>
+            </article>
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">🎨</div>
+              <h3>Versões Disponíveis</h3>
+              <p>Colorida (principal) · Branca (fundos coloridos) · Navy monocromático (fundos claros) · Ícone circular · App icon.</p>
+            </article>
+            <article class="usage-card reveal" data-effect="scale">
+              <div class="usage-icon">🔤</div>
+              <h3>Tipografia</h3>
+              <p>LemonMilk exclusiva para títulos e marca. DM Sans para corpo de texto e UI. Nunca substituir por outras fontes em materiais institucionais.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="brand-footer">
+      <img class="reveal" data-effect="scale" src="assets/XPDClinic_white.png" alt="XPDoctor Clinic">
+      <p class="reveal">©2026 XPDoctor · Identidade Visual Oficial · Desenvolvido pela Ti.Saúde</p>
+      <p class="reveal">Todos os direitos reservados. Uso interno e parceiros autorizados.</p>
+    </footer>
+  </div>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    document.querySelectorAll(".stagger").forEach((group) => {
+      group.querySelectorAll(".reveal").forEach((item, index) => {
+        item.style.setProperty("--delay", `${Math.min(index * 95, 520)}ms`);
+      });
+    });
+
+    if (prefersReducedMotion) {
+      document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.12
+      });
+
+      document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
+    }
+
+    const updateScrollEffects = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
+      document.documentElement.style.setProperty("--scroll-progress", `${progress}%`);
+      document.documentElement.style.setProperty("--parallax-y", `${Math.min(window.scrollY, 900)}px`);
+    };
+
+    updateScrollEffects();
+    window.addEventListener("scroll", updateScrollEffects, { passive: true });
+    window.addEventListener("resize", updateScrollEffects);
+  </script>
+</body>
+</html>
