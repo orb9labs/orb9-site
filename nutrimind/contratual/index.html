@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriMind × CPANEM — Modelo Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Primárias */
+    --teal: #1A9A7A;
+    --teal-suave: #E8F5F0;
+    --violeta: #6C3CE0;
+    --lavanda: #F0EBFC;
+    --azul-noite: #0F1824;
+    --navy-medio: #1A2535;
+
+    /* Neutros */
+    --branco: #FFFFFF;
+    --off-white: #F8F9FB;
+    --prata: #E2E5EB;
+    --carvao: #1A1D23;
+    --ardosia: #6B7280;
+    --cinza: #9CA3AF;
+
+    /* Semânticas */
+    --sage: #16A34A;
+    --ambar: #D97706;
+    --vermelho: #DC2626;
+    --aco: #2563EB;
+
+    /* Tipografia */
+    --f-display: 'Nunito', system-ui, sans-serif;
+    --f-mono: 'Fira Code', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--off-white);
+    color: var(--carvao);
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  header.masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: var(--azul-noite);
+    border-radius: 12px;
+    margin-bottom: 56px;
+    animation: rise 600ms 60ms both;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--branco);
+  }
+  .mark-glyph {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--teal);
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mark-glyph::after {
+    content: '';
+    width: 12px; height: 12px;
+    background: var(--branco);
+    border-radius: 3px;
+    transform: rotate(45deg);
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-text .name {
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: -0.052em;
+    color: var(--branco);
+  }
+  .brand-text .tag {
+    font-size: 10px;
+    color: var(--cinza);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .meta {
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .meta .confidencial {
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    margin-bottom: 64px;
+    animation: rise 700ms 160ms both;
+  }
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--teal-suave);
+    color: var(--teal);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-kicker .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  .hero h1 {
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: clamp(48px, 6.5vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.052em;
+    color: var(--azul-noite);
+    margin-bottom: 24px;
+  }
+  .hero h1 .x {
+    color: var(--teal);
+    margin: 0 4px;
+  }
+
+  .hero-deck {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 680px;
+    color: var(--ardosia);
+  }
+  .hero-deck strong {
+    color: var(--carvao);
+    font-weight: 700;
+  }
+
+  /* ─── SECTIONS ───────────────────────────────────────── */
+  .sections {
+    display: grid;
+    gap: 0;
+  }
+
+  .section {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 32px;
+    padding: 36px 0;
+    border-top: 1px solid var(--prata);
+    animation: rise 600ms both;
+  }
+  .section:nth-child(1) { animation-delay: 240ms; }
+  .section:nth-child(2) { animation-delay: 290ms; }
+  .section:nth-child(3) { animation-delay: 340ms; }
+  .section:nth-child(4) { animation-delay: 390ms; }
+  .section:nth-child(5) { animation-delay: 440ms; }
+  .section:nth-child(6) { animation-delay: 490ms; }
+  .section:nth-child(7) { animation-delay: 540ms; }
+
+  .section-num {
+    font-family: var(--f-mono);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--teal);
+    background: var(--teal-suave);
+    border-radius: 6px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    width: fit-content;
+    letter-spacing: 0.04em;
+  }
+
+  .section-body h2 {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--azul-noite);
+    margin-bottom: 22px;
+  }
+
+  .section-body ul {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+  }
+  .section-body li {
+    padding-left: 28px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ardosia);
+    font-weight: 500;
+  }
+  .section-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 14px;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+  .section-body li strong {
+    color: var(--carvao);
+    font-weight: 700;
+  }
+
+  /* ─── PRICING CALLOUT ────────────────────────────────── */
+  .pricing-callout {
+    background: var(--azul-noite);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-callout::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -10%;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(26,154,122,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .price-item {
+    padding: 0 32px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .price-item:first-child { padding-left: 0; }
+  .price-item:last-child { padding-right: 0; border-right: none; }
+
+  .price-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(26,154,122,0.18);
+    color: #6FE3BC;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .price-tag.mentor {
+    background: rgba(108,60,224,0.22);
+    color: #C9B6FF;
+  }
+  .price-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .price-value {
+    font-family: var(--f-mono);
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--branco);
+    margin-bottom: 14px;
+  }
+  .price-value .cur {
+    font-size: 0.5em;
+    color: var(--teal);
+    margin-right: 6px;
+    vertical-align: 0.35em;
+    font-weight: 400;
+  }
+  .price-value .per {
+    font-family: var(--f-display);
+    font-size: 0.28em;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+    margin-left: 8px;
+    letter-spacing: 0;
+  }
+  .price-desc {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* ─── DATES BLOCK ────────────────────────────────────── */
+  .dates-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .date-card {
+    background: var(--branco);
+    border: 1px solid var(--prata);
+    padding: 22px 24px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .date-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: var(--teal);
+  }
+  .date-card.launch::before {
+    background: var(--violeta);
+  }
+  .date-card .label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ardosia);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .date-card .when {
+    font-family: var(--f-display);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--azul-noite);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .date-card .when .yr {
+    color: var(--cinza);
+    font-weight: 600;
+  }
+
+  /* ─── RACI MATRIX ────────────────────────────────────── */
+  .raci-section {
+    margin-top: 88px;
+    animation: rise 700ms 620ms both;
+  }
+  .raci-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--azul-noite);
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .raci-title-block .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--lavanda);
+    color: var(--violeta);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .raci-title-block .kicker .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--violeta);
+  }
+  .raci-title-block h2 {
+    font-family: var(--f-display);
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.052em;
+    color: var(--azul-noite);
+  }
+  .raci-title-block h2 em {
+    font-style: normal;
+    color: var(--teal);
+  }
+
+  .raci-legend {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px 20px;
+    font-size: 12.5px;
+    color: var(--ardosia);
+    font-weight: 600;
+  }
+  .raci-legend .item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 12px;
+    font-family: var(--f-display);
+    flex-shrink: 0;
+  }
+
+  .badge-R { background: var(--teal); color: var(--branco); }
+  .badge-A { background: var(--azul-noite); color: var(--branco); }
+  .badge-C { background: var(--violeta); color: var(--branco); }
+  .badge-I { background: var(--prata); color: var(--ardosia); }
+
+  .raci-table-wrap {
+    background: var(--branco);
+    border: 1px solid var(--prata);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  table.raci {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table.raci thead th {
+    background: var(--off-white);
+    color: var(--azul-noite);
+    text-align: left;
+    padding: 16px 20px;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--prata);
+  }
+  table.raci thead th.col-actor {
+    text-align: center;
+    width: 140px;
+    border-left: 1px solid var(--prata);
+  }
+  table.raci thead th.col-actor .actor-name {
+    display: block;
+    font-size: 12px;
+    color: var(--azul-noite);
+  }
+  table.raci thead th.col-actor .actor-sub {
+    display: block;
+    font-size: 10px;
+    color: var(--cinza);
+    font-weight: 600;
+    margin-top: 3px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  table.raci tbody td {
+    padding: 16px 20px;
+    border-top: 1px solid var(--prata);
+    color: var(--ardosia);
+    vertical-align: middle;
+  }
+  table.raci tbody tr:hover {
+    background: var(--teal-suave);
+  }
+  table.raci tbody td.activity {
+    font-weight: 700;
+    color: var(--carvao);
+    font-size: 14px;
+  }
+  table.raci tbody td.activity .sub {
+    display: block;
+    font-size: 12.5px;
+    color: var(--ardosia);
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  table.raci tbody td.actor-cell {
+    text-align: center;
+    border-left: 1px solid var(--prata);
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer.foot {
+    margin-top: 72px;
+    padding-top: 28px;
+    border-top: 1px solid var(--prata);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza);
+    font-weight: 600;
+  }
+  footer.foot .sig {
+    color: var(--ardosia);
+  }
+  footer.foot .sig strong {
+    color: var(--azul-noite);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: none;
+    font-size: 14px;
+  }
+
+  /* ─── ANIMATIONS ─────────────────────────────────────── */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .container { padding: 28px 20px 56px; }
+    header.masthead { flex-direction: column; gap: 14px; align-items: flex-start; }
+    .meta { text-align: left; }
+    .hero h1 { font-size: 40px; }
+    .hero-deck { font-size: 17px; }
+    .section { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+    .section-body h2 { font-size: 24px; }
+    .pricing-callout { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+    .price-item { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px; }
+    .price-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .price-value { font-size: 44px; }
+    .dates-block { grid-template-columns: 1fr; }
+    .raci-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .raci-title-block h2 { font-size: 32px; }
+    .raci-legend { grid-template-columns: repeat(2, 1fr); }
+    table.raci { font-size: 12.5px; }
+    table.raci thead th, table.raci tbody td { padding: 12px 10px; }
+    table.raci tbody td.activity .sub { font-size: 11px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .section, .raci-section, .hero, header.masthead { animation: none; }
+    header.masthead, .pricing-callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    table.raci thead th, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ═══ HEADER ════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="brand-mark">
+      <div class="mark-glyph"></div>
+      <div class="brand-text">
+        <span class="name">NutriMind</span>
+        <span class="tag">por ORB9</span>
+      </div>
+    </div>
+    <div class="meta">
+      <div>Briefing executivo · 22 · Maio · 2026</div>
+      <div class="confidencial">Confidencial</div>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-kicker"><span class="dot"></span>Modelo Comercial v1</div>
+    <h1>NutriMind <span class="x">×</span> CPANEM</h1>
+    <p class="hero-deck">Uma <strong>parceria de fundadores</strong>: cada lado entra com o que tem de mais forte. A ORB9 banca a plataforma. A CPANEM traz a rede. Sem fees, sem repasses — só a infraestrutura para a mentoria ganhar escala digital.</p>
+  </section>
+
+  <!-- ═══ SECTIONS ══════════════════════════════════════ -->
+  <div class="sections">
+
+    <!-- 01 -->
+    <article class="section">
+      <div><span class="section-num">01</span></div>
+      <div class="section-body">
+        <h2>Abertura — o espírito do acordo</h2>
+        <ul>
+          <li><strong>Parceria de fundadores:</strong> ORB9 entra com a plataforma, CPANEM entra com a rede.</li>
+          <li>Sem fee de white label, sem fee de licença de marca, sem repasse mensal.</li>
+          <li>A Dra. Ivana não paga nada, mas se compromete em colocar <strong>no mínimo 50 mentorados</strong> dentro da plataforma.</li>
+          <li>O que cada lado opera, cada lado banca.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="section">
+      <div><span class="section-num">02</span></div>
+      <div class="section-body">
+        <h2>O que a ORB9 entrega e banca</h2>
+        <ul>
+          <li>Desenvolvimento, infra, suporte técnico, LGPD e cobrança.</li>
+          <li><strong>100% do custo operacional</strong> da plataforma é nosso.</li>
+          <li>Marca CPANEM no produto — <strong>white label completo</strong>.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="section">
+      <div><span class="section-num">03</span></div>
+      <div class="section-body">
+        <h2>O que a CPANEM entrega</h2>
+        <ul>
+          <li>Indicação dos profissionais da rede para assinar.</li>
+          <li>Os <strong>50 mentorados ativos mínimo</strong> como base inicial.</li>
+          <li>Curadoria clínica mínima para manter o produto vivo: protocolos e templates atualizados periodicamente.</li>
+          <li>Comunicação com a rede (eventos, anúncios, e-mails).</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="section">
+      <div><span class="section-num">04</span></div>
+      <div class="section-body">
+        <h2>Modelo de preços — único e simples</h2>
+        <div class="pricing-callout">
+          <div class="price-item">
+            <div class="price-tag">Preço cheio</div>
+            <div class="price-label">Profissional CPANEM</div>
+            <div class="price-value"><span class="cur">R$</span>197<span class="per">/mês</span></div>
+            <div class="price-desc">Acesso completo à plataforma white label CPANEM</div>
+          </div>
+          <div class="price-item">
+            <div class="price-tag mentor">Mentoria ativa</div>
+            <div class="price-label">Mentorado CPANEM</div>
+            <div class="price-value"><span class="cur">R$</span>97<span class="per">/mês</span></div>
+            <div class="price-desc">Limitado a 50 slots · enquanto mentoria estiver ativa</div>
+          </div>
+        </div>
+        <ul style="margin-top: 24px;">
+          <li><strong>100% da assinatura</strong> fica com a ORB9.</li>
+          <li>A mentoria continua sendo cobrada pela Dra. Ivana por fora, como já é hoje.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 05 -->
+    <article class="section">
+      <div><span class="section-num">05</span></div>
+      <div class="section-body">
+        <h2>Por que esse desenho funciona para os dois lados</h2>
+        <ul>
+          <li>Ela <strong>não tem custo operacional, não tem risco financeiro, não tem fee</strong> a pagar.</li>
+          <li>Ela ganha autoridade digital, escala da rede e a mentoria fortalecida pela plataforma.</li>
+          <li>A ORB9 ganha o canal e a base inicial garantida pelos mentorados.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 06 -->
+    <article class="section">
+      <div><span class="section-num">06</span></div>
+      <div class="section-body">
+        <h2>O que precisamos para esse modelo girar</h2>
+        <ul>
+          <li>Mínimo de <strong>50 mentorados ativos</strong> assinando a R$ 97.</li>
+          <li>Compromisso de indicar a rede CPANEM para assinar a plataforma.</li>
+          <li>Curadoria mínima de conteúdo clínico para o produto não esvaziar.</li>
+          <li>Uso do <strong>evento de junho</strong> como janela de lançamento.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 07 -->
+    <article class="section">
+      <div><span class="section-num">07</span></div>
+      <div class="section-body">
+        <h2>Datas</h2>
+        <div class="dates-block">
+          <div class="date-card">
+            <div class="label">Pré-lançamento MVP</div>
+            <div class="when">17 de Junho <span class="yr">/ 2026</span></div>
+          </div>
+          <div class="date-card launch">
+            <div class="label">Lançamento oficial</div>
+            <div class="when">25 de Junho <span class="yr">/ 2026</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ═══ RACI MATRIX ═══════════════════════════════════ -->
+  <section class="raci-section">
+
+    <div class="raci-header">
+      <div class="raci-title-block">
+        <div class="kicker"><span class="dot"></span>Matriz de Responsabilidade</div>
+        <h2>Quem faz <em>o quê</em></h2>
+      </div>
+      <div class="raci-legend">
+        <div class="item"><span class="badge badge-R">R</span> Responsável <span style="color:var(--cinza);font-weight:500;">· executa</span></div>
+        <div class="item"><span class="badge badge-A">A</span> Aprovador <span style="color:var(--cinza);font-weight:500;">· decide</span></div>
+        <div class="item"><span class="badge badge-C">C</span> Consultado <span style="color:var(--cinza);font-weight:500;">· opina</span></div>
+        <div class="item"><span class="badge badge-I">I</span> Informado <span style="color:var(--cinza);font-weight:500;">· é avisado</span></div>
+      </div>
+    </div>
+
+    <div class="raci-table-wrap">
+      <table class="raci">
+        <thead>
+          <tr>
+            <th>Atividade</th>
+            <th class="col-actor">
+              <span class="actor-name">ORB9</span>
+              <span class="actor-sub">plataforma</span>
+            </th>
+            <th class="col-actor">
+              <span class="actor-name">CPANEM</span>
+              <span class="actor-sub">Dra. Ivana</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class="activity">Desenvolvimento da plataforma
+              <span class="sub">arquitetura, código, releases</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Infraestrutura, hospedagem e disponibilidade
+              <span class="sub">cloud, backups, monitoramento</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Suporte técnico aos usuários
+              <span class="sub">bugs, dúvidas operacionais, SLA</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Conformidade LGPD e DPO
+              <span class="sub">políticas, termos, encarregado de dados</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Cobrança e faturamento
+              <span class="sub">Mercado Pago, NF, inadimplência</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Marca CPANEM no produto (white label)
+              <span class="sub">logo, paleta, identidade visual</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-A">A</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Curadoria clínica de protocolos e templates
+              <span class="sub">conteúdo que mantém o produto vivo</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Atualização periódica do conteúdo clínico
+              <span class="sub">frequência mínima a ser combinada</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Indicação dos 50 mentorados ativos
+              <span class="sub">lista, atualização, gestão de slots</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Indicação da rede CPANEM (preço cheio)
+              <span class="sub">campanhas, indicações ativas</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Comunicação com a rede
+              <span class="sub">e-mails, eventos, redes sociais</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Evento CPANEM de junho — janela de lançamento
+              <span class="sub">organização, palco, audiência</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Mentoria CPANEM (cobrada por fora)
+              <span class="sub">conteúdo, encontros, certificações</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Definição de preços e política comercial
+              <span class="sub">ticket, descontos, fidelidade</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Roadmap de produto
+              <span class="sub">novas funcionalidades, prioridades</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-C">C</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Métricas de adoção e relatórios
+              <span class="sub">ativos, churn, NPS</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-I">I</span></td>
+          </tr>
+
+          <tr>
+            <td class="activity">Acordo de parceria (contrato)
+              <span class="sub">redação, vigência, rescisão</span>
+            </td>
+            <td class="actor-cell"><span class="badge badge-R">R</span></td>
+            <td class="actor-cell"><span class="badge badge-A">A</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════ -->
+  <footer class="foot">
+    <span>NutriMind × CPANEM · Modelo Comercial v1</span>
+    <span class="sig"><strong>ORB9</strong> · 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
