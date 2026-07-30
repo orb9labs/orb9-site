@@ -215,7 +215,6 @@ em { color: var(--primary); font-style: normal; }
 .security-note { color: #8fa6b7; font-size: .7rem; margin: 20px 0 0; text-align: center; }
 .authority-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; width: min(100%, 920px); margin-inline: auto; }
 .authority-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: 0 14px 34px rgba(21,66,104,.08); }
-.authority-card--primary { border-top: 4px solid var(--primary); box-shadow: 0 24px 55px rgba(21,66,104,.14); }
 .authority-photo { position: relative; aspect-ratio: 1; min-height: 0; overflow: hidden; margin: 0; background: #d2dce3; }
 .authority-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; border: 1px solid rgba(21,66,104,.12); border-radius: inherit; box-shadow: inset 0 -90px 100px rgba(9,30,46,.08); }
 .authority-photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
@@ -362,7 +361,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
   .timeline-card:nth-child(3)::after { display: block; }
   .timeline-card:nth-child(2n)::after { display: none; }
   .authority-cards { grid-template-columns: 1fr; }
-  .authority-card--primary { max-width: none; }
   .contact-info { position: static; max-width: 690px; }
   .final-cta__inner { grid-template-columns: 1fr; gap: 28px; }
 }
