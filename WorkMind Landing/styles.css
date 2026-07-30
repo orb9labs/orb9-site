@@ -213,7 +213,7 @@ em { color: var(--primary); font-style: normal; }
 .security-stats strong { color: #fff; font: 600 2rem var(--font-display); white-space: nowrap; }
 .security-stats span { color: #9fb3c2; font-size: .72rem; line-height: 1.4; }
 .security-note { color: #8fa6b7; font-size: .7rem; margin: 20px 0 0; text-align: center; }
-.authority-cards { display: grid; grid-template-columns: 1.08fr .92fr; gap: 26px; align-items: stretch; }
+.authority-cards { display: grid; grid-template-columns: .92fr 1.08fr; gap: 26px; align-items: stretch; }
 .authority-card { overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: #fff; box-shadow: 0 16px 42px rgba(21,66,104,.08); }
 .authority-card--primary { border-top: 4px solid var(--primary); box-shadow: 0 24px 55px rgba(21,66,104,.14); }
 .authority-photo { position: relative; min-height: 390px; overflow: hidden; margin: 0; background: #d2dce3; }
