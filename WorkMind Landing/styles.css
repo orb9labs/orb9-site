@@ -216,10 +216,9 @@ em { color: var(--primary); font-style: normal; }
 .authority-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; width: min(100%, 920px); margin-inline: auto; }
 .authority-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: 0 14px 34px rgba(21,66,104,.08); }
 .authority-card--primary { border-top: 4px solid var(--primary); box-shadow: 0 24px 55px rgba(21,66,104,.14); }
-.authority-photo { position: relative; min-height: 270px; overflow: hidden; margin: 0; background: #d2dce3; }
+.authority-photo { position: relative; aspect-ratio: 1; min-height: 0; overflow: hidden; margin: 0; background: #d2dce3; }
 .authority-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; border: 1px solid rgba(21,66,104,.12); border-radius: inherit; box-shadow: inset 0 -90px 100px rgba(9,30,46,.08); }
-.authority-photo img { width: 100%; height: 270px; object-fit: cover; object-position: center 18%; }
-.authority-photo--anderson img { object-position: center 22%; }
+.authority-photo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .authority-card__copy { display: flex; flex: 1; flex-direction: column; padding: 25px; }
 .authority-profile { display: flex; gap: 17px; align-items: center; margin: 0 0 22px; padding: 0 0 22px; border-bottom: 1px solid var(--border); }
 .monogram { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--institutional); color: #fff; font: 600 .8rem var(--font-display); }
@@ -410,8 +409,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
   .timeline-card ul { min-height: 0; }
   .security-stats { grid-template-columns: 1fr; }
   .security-stats > div { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.13); }
-  .authority-photo { min-height: 260px; }
-  .authority-photo img { height: 260px; }
   .size-card--featured { transform: none; margin-top: 14px; }
   .faq-layout { gap: 10px; }
   .contact-form { padding: 25px 18px; margin-inline: -3px; }
