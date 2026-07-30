@@ -411,5 +411,5 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
   .reveal { opacity: 1; transform: none; }
 }
 .text-red {
-  color: #e00000;
+  color: #e00000 !important;
 }
