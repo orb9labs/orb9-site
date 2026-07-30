@@ -142,6 +142,7 @@ cnpjInput.addEventListener("input", () => {
 const form = document.getElementById("lead-form");
 const submitButton = form.querySelector(".submit-button");
 const successMessage = form.querySelector(".form-success");
+const errorMessage = form.querySelector(".form-error-message");
 
 function setError(field, message) {
   const wrapper = field.closest(".field");
@@ -179,9 +180,10 @@ form.querySelectorAll("input, select, textarea").forEach((field) => {
   });
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   successMessage.hidden = true;
+  errorMessage.hidden = true;
 
   const fields = [...form.querySelectorAll("input, select, textarea")];
   const valid = fields.map(validateField).every(Boolean);
@@ -196,12 +198,15 @@ form.addEventListener("submit", (event) => {
   submitButton.classList.add("loading");
   submitButton.querySelector("span").textContent = "Enviando...";
 
-  /*
-   * Integração futura:
-   * substitua o temporizador abaixo por uma chamada fetch() para sua API,
-   * Formspree, HubSpot, RD Station ou outro CRM.
-   */
-  window.setTimeout(() => {
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(form)
+    });
+
+    if (!response.ok) throw new Error("Falha ao enviar formulário");
+
     submitButton.disabled = false;
     submitButton.classList.remove("loading");
     submitButton.querySelector("span").textContent = "Enviar solicitação";
@@ -210,5 +215,11 @@ form.addEventListener("submit", (event) => {
     form.reset();
     form.querySelectorAll(".field").forEach((field) => field.classList.remove("invalid"));
     form.querySelectorAll("[aria-invalid]").forEach((field) => field.setAttribute("aria-invalid", "false"));
-  }, 900);
+  } catch (error) {
+    submitButton.disabled = false;
+    submitButton.classList.remove("loading");
+    submitButton.querySelector("span").textContent = "Enviar solicitação";
+    errorMessage.hidden = false;
+    errorMessage.focus();
+  }
 });

@@ -69,6 +69,7 @@ em { color: var(--primary); font-style: normal; }
 .button--secondary:hover { color: #fff; }
 .button--light { background: #fff; border-color: #fff; color: var(--institutional); }
 .button--light:hover { background: #eaf2fb; border-color: #eaf2fb; }
+.header-login { display: none; margin-left: auto; }
 .menu-toggle { display: none; border: 0; background: transparent; padding: 10px; }
 .menu-toggle > span:not(.sr-only) { display: block; width: 24px; height: 2px; background: var(--institutional); margin: 5px 0; transition: transform .2s, opacity .2s; }
 
@@ -286,6 +287,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
 .form-success { margin-top: 18px; padding: 18px; border: 1px solid #9dc8b5; border-radius: 8px; background: #edf7f2; color: var(--success); }
 .form-success strong, .form-success span { display: block; }
 .form-success span { font-size: .78rem; }
+.form-error-message { margin-top: 18px; padding: 18px; border: 1px solid #e6b2b2; border-radius: 8px; background: #fff1f1; color: #9c2525; }
+.form-error-message strong, .form-error-message span { display: block; }
+.form-error-message span { font-size: .78rem; }
+.form-honeypot { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important; }
 .final-cta { padding: 72px 0; background: var(--primary); color: #fff; }
 .final-cta__inner { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
 .final-cta h2 { max-width: 800px; margin-bottom: 12px; font-size: clamp(1.8rem,3vw,2.75rem); }
@@ -307,6 +312,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
 .reveal.is-visible { opacity: 1; transform: none; }
 
 @media (max-width: 1100px) {
+  .header-login { display: inline-flex; }
   .main-nav { gap: 13px; }
   .main-nav > a:not(.button) { font-size: .73rem; }
   .main-nav .button { display: none; }
@@ -359,6 +365,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); outlin
   .institutional-bar__inner { justify-content: center; }
   .institutional-bar a { display: none; }
   .header-inner { min-height: 68px; }
+  .header-login { min-height: 38px; padding: 8px 14px; font-size: .72rem; }
   .main-nav { inset: 100px 0 auto; }
   .brand-logo { width: 108px; height: 53px; }
   .brand-logo--footer { width: 142px; height: 70px; }
