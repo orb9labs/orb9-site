@@ -7,6 +7,7 @@ const files = {
   "/assets/js/script.js": ["assets/js/script.js", "text/javascript; charset=utf-8", false],
   "/assets/images/orb9-logo-social.png": ["assets/images/orb9-logo-social.png", "image/png", true],
   "/assets/images/orb9-symbol.png": ["assets/images/orb9-symbol.png", "image/png", true],
+  "/assets/images/orb9-header-logo.png": ["assets/images/orb9-header-logo.png", "image/png", true],
 };
 
 const bundled = {};
