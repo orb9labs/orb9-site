@@ -1,6 +1,9 @@
 const header = document.querySelector("#header");
 const toggle = document.querySelector("#navToggle");
 const nav = document.querySelector("#nav");
+const progress = document.querySelector(".scroll-progress");
+const heroContent = document.querySelector(".hero-content");
+const heroVisual = document.querySelector(".orb-visual");
 
 const closeMenu = () => {
   nav.classList.remove("open");
@@ -9,7 +12,25 @@ const closeMenu = () => {
   toggle.setAttribute("aria-label", "Abrir menu");
 };
 
-window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 8), { passive: true });
+let scrollFrame;
+const updateScrollEffects = () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const pageProgress = scrollable > 0 ? window.scrollY / scrollable : 0;
+  progress.style.transform = `scaleX(${Math.min(1, Math.max(0, pageProgress))})`;
+  header.classList.toggle("scrolled", window.scrollY > 8);
+
+  if (!reducedMotion) {
+    const heroProgress = Math.min(1, window.scrollY / Math.max(1, window.innerHeight * 0.8));
+    heroContent.style.setProperty("--hero-shift", `${heroProgress * 22}px`);
+    heroContent.style.setProperty("--hero-opacity", String(1 - heroProgress * 0.16));
+    heroVisual.style.setProperty("--hero-visual-shift", `${heroProgress * -8}px`);
+  }
+  scrollFrame = undefined;
+};
+
+window.addEventListener("scroll", () => {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollEffects);
+}, { passive: true });
 toggle.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   toggle.classList.toggle("open", open);
@@ -20,6 +41,10 @@ nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll(".product-grid, .feature-grid").forEach((grid) => {
+  [...grid.children].forEach((item, index) => item.style.setProperty("--reveal-delay", `${index * 70}ms`));
+});
+
 if ("IntersectionObserver" in window && !reducedMotion) {
   const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (entry.isIntersecting) { entry.target.classList.add("visible"); observer.unobserve(entry.target); }
@@ -29,4 +54,5 @@ if ("IntersectionObserver" in window && !reducedMotion) {
   document.querySelectorAll(".reveal").forEach((item) => item.classList.add("visible"));
 }
 
+updateScrollEffects();
 document.querySelector("#year").textContent = new Date().getFullYear();
