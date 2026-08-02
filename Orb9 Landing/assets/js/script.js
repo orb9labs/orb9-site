@@ -31,6 +31,10 @@ const updateScrollEffects = () => {
 window.addEventListener("scroll", () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollEffects);
 }, { passive: true });
+window.addEventListener("resize", () => {
+  closeMenu();
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollEffects);
+}, { passive: true });
 toggle.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   toggle.classList.toggle("open", open);
