@@ -54,3 +54,21 @@ h2{font-size:clamp(2.2rem,4.3vw,3.7rem);font-weight:500;line-height:1.08;letter-
 .footer-bottom{justify-content:flex-end}
 .footer-logo{display:block;width:210px;background:#050505}
 .footer-logo img{display:block;width:100%;height:auto;object-fit:contain}
+
+/* Modelos de parceria: estrutura editorial, clara e orientada à colaboração. */
+.partnerships{background:#fff;border-top:1px solid #e7e9e7}
+.partnership-intro{display:grid;grid-template-columns:1fr .8fr;gap:7rem;align-items:end;margin-bottom:5rem}
+.partnership-intro>p{margin:0;color:var(--gray-500);font-size:1.05rem;max-width:510px}
+.partnership-models{border-top:1px solid #dfe2df}
+.partnership-model{display:grid;grid-template-columns:72px minmax(220px,.65fr) 1.35fr;gap:2.5rem;align-items:start;padding:2.1rem 0;border-bottom:1px solid #dfe2df;transition:padding var(--ease),background var(--ease)}
+.partnership-model:hover{padding-inline:1rem;background:var(--gray-50)}
+.model-number{width:42px;height:42px;display:grid;place-items:center;border:1px solid #d9ddd9;border-radius:50%;font-size:.7rem;font-weight:700;letter-spacing:.06em;transition:background var(--ease),border-color var(--ease)}
+.partnership-model:hover .model-number{background:var(--green);border-color:var(--green);color:#000}
+.partnership-model h3{margin:.35rem 0 0;font-size:1.25rem;letter-spacing:-.025em}
+.partnership-model p{max-width:660px;margin:.25rem 0 0;color:var(--gray-500);font-size:.92rem}
+.partner-profile{display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start;margin-top:3rem;padding:2.3rem;background:#f7fbe8;border-left:3px solid var(--green)}
+.partner-profile span{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.partner-profile p{max-width:760px;margin:0;font-size:1.03rem;color:var(--gray-900)}
+.contact{background:var(--gray-50)}
+@media(max-width:900px){.partnership-intro{grid-template-columns:1fr;gap:2rem}.partnership-model{grid-template-columns:60px 1fr}.partnership-model p{grid-column:2}.partner-profile{grid-template-columns:1fr;gap:1rem}}
+@media(max-width:700px){.partnership-model{grid-template-columns:48px 1fr;gap:1rem;padding:1.6rem 0}.partnership-model:hover{padding-inline:.5rem}.model-number{width:36px;height:36px}.partner-profile{padding:1.5rem}}

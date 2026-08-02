@@ -41,7 +41,7 @@ nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-document.querySelectorAll(".product-grid, .feature-grid").forEach((grid) => {
+document.querySelectorAll(".product-grid, .feature-grid, .partnership-models").forEach((grid) => {
   [...grid.children].forEach((item, index) => item.style.setProperty("--reveal-delay", `${index * 70}ms`));
 });
 
