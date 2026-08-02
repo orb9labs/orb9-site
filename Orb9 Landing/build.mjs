@@ -1,15 +1,17 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const files = {
-  "/": ["index.html", "text/html; charset=utf-8"],
-  "/index.html": ["index.html", "text/html; charset=utf-8"],
-  "/assets/css/style.css": ["assets/css/style.css", "text/css; charset=utf-8"],
-  "/assets/js/script.js": ["assets/js/script.js", "text/javascript; charset=utf-8"],
+  "/": ["index.html", "text/html; charset=utf-8", false],
+  "/index.html": ["index.html", "text/html; charset=utf-8", false],
+  "/assets/css/style.css": ["assets/css/style.css", "text/css; charset=utf-8", false],
+  "/assets/js/script.js": ["assets/js/script.js", "text/javascript; charset=utf-8", false],
+  "/assets/images/orb9-logo-social.png": ["assets/images/orb9-logo-social.png", "image/png", true],
 };
 
 const bundled = {};
-for (const [route, [path, type]] of Object.entries(files)) {
-  bundled[route] = { body: await readFile(path, "utf8"), type };
+for (const [route, [path, type, binary]] of Object.entries(files)) {
+  const contents = await readFile(path);
+  bundled[route] = { body: binary ? contents.toString("base64") : contents.toString("utf8"), type, binary };
 }
 
 const worker = `const files = ${JSON.stringify(bundled)};
@@ -26,7 +28,11 @@ export default {
       });
     }
 
-    return new Response(file.body, {
+    const body = file.binary
+      ? Uint8Array.from(atob(file.body), character => character.charCodeAt(0))
+      : file.body;
+
+    return new Response(body, {
       headers: {
         "content-type": file.type,
         "cache-control": url.pathname === "/" || url.pathname === "/index.html"
