@@ -8,6 +8,7 @@ const files = {
   "/assets/images/orb9-logo-social.png": ["assets/images/orb9-logo-social.png", "image/png", true],
   "/assets/images/orb9-symbol.png": ["assets/images/orb9-symbol.png", "image/png", true],
   "/assets/images/orb9-header-logo.png": ["assets/images/orb9-header-logo.png", "image/png", true],
+  "/assets/images/orb9-favicon.png": ["assets/images/orb9-favicon.png", "image/png", true],
 };
 
 const bundled = {};

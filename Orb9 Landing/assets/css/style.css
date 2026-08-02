@@ -51,3 +51,4 @@ h2{font-size:clamp(2.2rem,4.3vw,3.7rem);font-weight:500;line-height:1.08;letter-
 .product-card.reveal,.feature.reveal{transform:translate3d(0,24px,0) scale(.975)}
 .product-card.reveal.visible,.feature.reveal.visible{transform:translate3d(0,0,0) scale(1)}
 @media(prefers-reduced-motion:reduce){.scroll-progress{display:none}.reveal,.hero-content.visible,.orb-visual.visible,.product-card.reveal,.feature.reveal{filter:none;transform:none;opacity:1;transition:none}}
+.footer-bottom{justify-content:flex-end}
