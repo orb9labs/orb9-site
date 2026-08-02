@@ -38,5 +38,5 @@ h2{font-size:clamp(2.2rem,4.3vw,3.7rem);font-weight:500;line-height:1.08;letter-
 .hero .node{background:#fff;border-color:#000;box-shadow:0 0 0 1px rgba(255,255,255,.7)}
 .hero .node.accent{background:var(--green);box-shadow:0 0 0 1px var(--green)}
 .hero .orb-core{inset:34%;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.28);box-shadow:0 0 0 9px rgba(196,239,1,.09)}
-.hero .orb-core img{position:absolute;width:150%;height:auto;max-width:none;left:50%;top:50%;transform:translate(-50%,-50%);display:block}
+.hero .orb-core img{position:absolute;width:112%;height:auto;max-width:none;left:50%;top:50%;transform:translate(-50%,-50%);display:block}
 @media(max-width:700px){.hero-brand{width:165px;height:58px}.hero-brand img{width:215px}}
