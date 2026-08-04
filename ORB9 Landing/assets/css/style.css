@@ -196,15 +196,20 @@ body{overflow-x:hidden}
 .team-intro{display:grid;grid-template-columns:1.15fr .85fr;gap:6rem;align-items:end;margin-bottom:4rem}
 .team-intro>p{margin:0;color:var(--gray-500);font-size:1.05rem}
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.person-card{display:grid;grid-template-columns:118px 1fr;gap:1.7rem;align-items:start;padding:1.7rem;border:1px solid #e2e5e2;border-radius:14px;background:var(--gray-50)}
-.person-monogram{width:118px;aspect-ratio:4/5;display:grid;place-items:end start;padding:1rem;border-radius:10px;background:var(--gray-900);color:var(--green);font-family:var(--display);font-size:2rem;font-weight:500;letter-spacing:-.05em}
+.person-card{display:flex;flex-direction:column;padding:1rem 1rem 1.8rem;border:1px solid #e2e5e2;border-radius:14px;background:var(--gray-50);overflow:hidden}
+.person-card>div{padding:1.3rem .7rem 0}
+.person-photo{display:block;width:100%;height:clamp(280px,30vw,380px);object-fit:cover;border-radius:10px;background:var(--gray-100)}
+.person-photo-anderson{object-position:center 30%}
+.person-photo-edson{object-position:center 27%}
 .person-role{margin:0 0 .35rem;color:var(--gray-500);font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
 .person-card h3,.clinical-card h3{margin:0 0 1.2rem;font-size:1.45rem;line-height:1.15}
 .person-card div>p:not(.person-role),.clinical-card p:not(.person-role){margin:.85rem 0 0;color:var(--gray-500);font-size:.85rem;line-height:1.65}
 .clinical{background:#f7fbe8}
 .clinical-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,8vw,7rem);align-items:start}
 .clinical-grid>div>p:last-child{max-width:560px;margin:1.7rem 0 0;color:var(--gray-500)}
-.clinical-card{padding:clamp(2rem,4vw,3rem);background:#fff;border-radius:14px;border-top:3px solid var(--green)}
+.clinical-card{padding:1rem;background:#fff;border-radius:14px;border-top:3px solid var(--green);overflow:hidden}
+.clinical-photo{display:block;width:100%;height:clamp(300px,34vw,420px);object-fit:cover;object-position:center 24%;border-radius:10px;background:var(--gray-100)}
+.clinical-card-content{padding:clamp(1.5rem,3vw,2rem) clamp(.6rem,2vw,1.2rem) clamp(.8rem,2vw,1.2rem)}
 .trust{background:#050505;color:#fff}
 .trust h2,.trust h3{color:#fff}
 .trust-intro{display:grid;grid-template-columns:1fr 1fr;column-gap:6rem;align-items:end;margin-bottom:4rem}
@@ -253,8 +258,10 @@ body{overflow-x:hidden}
   .capability-card{min-height:230px}
   .capability-card h3{margin-top:3.8rem}
   .purpose-card{min-height:330px;padding:1.7rem}
-  .person-card{grid-template-columns:1fr;padding:1.35rem}
-  .person-monogram{width:100%;height:150px;aspect-ratio:auto}
+  .person-card{padding:.8rem .8rem 1.4rem}
+  .person-card>div{padding:1.2rem .55rem 0}
+  .person-photo{height:min(84vw,360px)}
+  .clinical-photo{height:min(88vw,380px)}
   .trust-grid{grid-template-columns:1fr}
   .trust-card,.trust-card:first-child,.trust-card:nth-child(3){min-height:220px;border-left:1px solid #303330;border-bottom:1px solid #303330}
   .trust-card h3{margin-top:3.7rem}
