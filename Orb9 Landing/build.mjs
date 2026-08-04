@@ -3,6 +3,9 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 const files = {
   "/": ["index.html", "text/html; charset=utf-8", false],
   "/index.html": ["index.html", "text/html; charset=utf-8", false],
+  "/sobre": ["sobre/index.html", "text/html; charset=utf-8", false],
+  "/sobre/": ["sobre/index.html", "text/html; charset=utf-8", false],
+  "/sobre/index.html": ["sobre/index.html", "text/html; charset=utf-8", false],
   "/assets/css/style.css": ["assets/css/style.css", "text/css; charset=utf-8", false],
   "/assets/js/script.js": ["assets/js/script.js", "text/javascript; charset=utf-8", false],
   "/assets/images/orb9-logo-social.png": ["assets/images/orb9-logo-social.png", "image/png", true],

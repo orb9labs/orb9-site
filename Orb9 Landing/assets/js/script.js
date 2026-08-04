@@ -6,6 +6,7 @@ const heroContent = document.querySelector(".hero-content");
 const heroVisual = document.querySelector(".orb-visual");
 
 const closeMenu = () => {
+  if (!nav || !toggle) return;
   nav.classList.remove("open");
   toggle.classList.remove("open");
   toggle.setAttribute("aria-expanded", "false");
@@ -16,14 +17,16 @@ let scrollFrame;
 const updateScrollEffects = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const pageProgress = scrollable > 0 ? window.scrollY / scrollable : 0;
-  progress.style.transform = `scaleX(${Math.min(1, Math.max(0, pageProgress))})`;
-  header.classList.toggle("scrolled", window.scrollY > 8);
+  if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, pageProgress))})`;
+  if (header) header.classList.toggle("scrolled", window.scrollY > 8);
 
   if (!reducedMotion) {
     const heroProgress = Math.min(1, window.scrollY / Math.max(1, window.innerHeight * 0.8));
-    heroContent.style.setProperty("--hero-shift", `${heroProgress * 22}px`);
-    heroContent.style.setProperty("--hero-opacity", String(1 - heroProgress * 0.16));
-    heroVisual.style.setProperty("--hero-visual-shift", `${heroProgress * -8}px`);
+    if (heroContent) {
+      heroContent.style.setProperty("--hero-shift", `${heroProgress * 22}px`);
+      heroContent.style.setProperty("--hero-opacity", String(1 - heroProgress * 0.16));
+    }
+    if (heroVisual) heroVisual.style.setProperty("--hero-visual-shift", `${heroProgress * -8}px`);
   }
   scrollFrame = undefined;
 };
@@ -35,13 +38,13 @@ window.addEventListener("resize", () => {
   closeMenu();
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollEffects);
 }, { passive: true });
-toggle.addEventListener("click", () => {
+toggle?.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   toggle.classList.toggle("open", open);
   toggle.setAttribute("aria-expanded", String(open));
   toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
 });
-nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -59,4 +62,5 @@ if ("IntersectionObserver" in window && !reducedMotion) {
 }
 
 updateScrollEffects();
-document.querySelector("#year").textContent = new Date().getFullYear();
+const year = document.querySelector("#year");
+if (year) year.textContent = new Date().getFullYear();
