@@ -3,37 +3,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORB9 Labs</title>
-  <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #000000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .logo {
-      width: clamp(240px, 40vw, 520px);
-      height: auto;
-      display: block;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-  </style>
+  <meta name="description" content="A ORB9 desenvolve plataformas digitais e soluções de inteligência aplicada para saúde, produtividade, atendimento e transformação digital.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="ORB9 — Inteligência aplicada">
+  <meta property="og:description" content="Soluções digitais para saúde, bem-estar e operações empresariais.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <title>ORB9 — Inteligência aplicada</title>
+  <link rel="icon" type="image/png" href="assets/images/orb9-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <img
-    class="logo"
-    src="data:image/jpeg;base64,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cFLDDukbpJkkLDDlkFtndzguLTA4Hw3d6J9hQm5mBFbVPneG1DA+HLrA9p7xcYf+pebetWdN7PGX3HObBCBz2rGPPuaSShBe6+KiaKnp5J5pGRRRsL3ve4Na1oG5JJ4ADxUbs+6YOndmhfHjdPX5HWDcN6jfi8APm9w329TSooaya859qYXUl0uDaCz9bcWyh3jhPh1zv1pD+sdvABAZr6VvSdjudNVYTptWuNJIHRXC8RnbtRyMcB+ie9/fyHDiogFCVRAEREAREQEjNCukDLaYqbHs6llnoWgR09y2LpIW9zZO9zR9LmPNSotdwornQRV1uq4aykmb1o5oXhzXD1hay1dWB6gZXhFUZseus1PG47yU7vThk/WYeHtGx81XmYchSK+Nz6R9SN619l+j8OBDRsUG/Mbo7bxHjuozYf0p6dzWQ5Tj74n8A6ooHdZvr6juI95WTrJrlpndGNLcngpHH5lZE6I+8jZVlW5Uxakdo5Da3r3l4XMbGS/YnsVt0md4dVtDqfKLNIDyIrWD95XJNmuJQs68uTWZrfH49H/itO6GqTs5cV+xguE7Ed6puNxw791YF31k01trC6bLrdKRzbTuMx/ugrHWWdKPGKRj4ses9ddJtvRknIgj/i77ltKTLOK1TtLkRc1Zd7shYkGVhrWDXjHcQjlt1kfDer2N29SN/WggP/mOB4n6rePiQo36ha1Z3mLJKWe5fk23P4Gkod42uHg53yneonbyWOArBwPo6hlRKbiEXW/pWrm/Jd5lY9nL8lvGVXye83ytkq6uY8XO5NHc1o5NaO4BeKqlUVoS5cMqFQQKyWpIkIiLMBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAf/Z"
-    alt="ORB9 Labs"
-    draggable="false"
-  >
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a class="logo" href="#home" aria-label="ORB9 — Página inicial">
+        <img class="header-logo" src="assets/images/orb9-header-logo.png" alt="ORB9" width="1613" height="605">
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a href="#home">Home</a><a href="sobre/">Sobre</a><a href="#produtos">Produtos</a><a href="#contato">Contato</a>
+        <a class="button button-green nav-cta" href="#contato">Fale conosco</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-controls="nav" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="hero-brand">
+            <img src="assets/images/orb9-logo-social.png" alt="ORB9" width="1678" height="734">
+          </div>
+          <p class="eyebrow">Tecnologia · Inteligência · Governança</p>
+          <h1>Inteligência aplicada.</h1>
+          <p class="hero-subtitle">Soluções digitais que transformam saúde, bem-estar e operações empresariais.</p>
+          <p class="hero-text">A ORB9 desenvolve plataformas digitais próprias, unindo engenharia de software, inteligência artificial e governança para transformar desafios complexos em resultados concretos.</p>
+          <div class="actions">
+            <a class="button button-dark" href="#produtos">Conheça nossas soluções</a>
+            <a class="button button-ghost" href="#contato">Fale com um especialista</a>
+          </div>
+        </div>
+        <div class="orb-visual reveal" role="img" aria-label="Nove pontos orbitando o núcleo ORB9">
+          <span class="node-ring ring-outer" aria-hidden="true">
+            <span class="orbit orbit-a"></span>
+            <i class="node n1"></i><i class="node n2"></i><i class="node n3"></i><i class="node n4"></i>
+          </span>
+          <span class="node-ring ring-middle" aria-hidden="true">
+            <span class="orbit orbit-b"></span>
+            <i class="node n5 accent"></i><i class="node n6"></i><i class="node n7"></i>
+          </span>
+          <span class="node-ring ring-inner" aria-hidden="true">
+            <span class="orbit orbit-c"></span>
+            <i class="node n8"></i><i class="node n9"></i>
+          </span>
+          <span class="orb-core"><img src="assets/images/orb9-symbol.png" alt="" width="2000" height="2000"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="sobre">
+      <div class="container about-grid">
+        <div class="reveal">
+          <p class="eyebrow">Sobre a ORB9</p>
+          <h2>Plataformas próprias, construídas com engenharia e inteligência.</h2>
+        </div>
+        <div class="about-copy reveal">
+          <p>A ORB9 concebe, desenvolve e opera soluções digitais que conectam inteligência, pessoas e processos. Cada produto nasce de um problema real e evolui com uma base sólida de tecnologia, segurança e governança.</p>
+          <ul class="topics" aria-label="Áreas de atuação">
+            <li>Inteligência Artificial</li><li>Saúde</li><li>Bem-estar</li><li>Engenharia de Software</li><li>Plataformas Digitais</li><li>Soluções Corporativas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section products" id="produtos">
+      <div class="container">
+        <div class="section-head reveal"><p class="eyebrow">Produtos</p><h2>Um portfólio de soluções para pessoas e empresas.</h2></div>
+        <div class="product-grid">
+          <article class="product-card reveal"><span class="product-mark">W</span><h3>WorkMind</h3><p>Saúde emocional, bem-estar e inteligência para o ambiente de trabalho.</p><span class="soon">Conhecer solução</span></article>
+          <article class="product-card reveal"><span class="product-mark green">N</span><h3>NutriMind</h3><p>Tecnologia para transformar jornadas de saúde, nutrição e qualidade de vida.</p><span class="soon">Conhecer solução</span></article>
+          <article class="product-card reveal"><span class="product-mark">M</span><h3>MindAI</h3><p>Inteligência artificial aplicada ao conhecimento, cuidado e tomada de decisão.</p><span class="soon">Conhecer solução</span></article>
+          <article class="product-card reveal"><span class="product-mark soft">C</span><h3>Cortex Resolve</h3><p>Automação inteligente para demandas e processos corporativos complexos.</p><span class="soon">Conhecer solução</span></article>
+          <article class="product-card reveal"><span class="product-mark">C</span><h3>CloudSupport</h3><p>Atendimento em nuvem que conecta pessoas, canais e inteligência artificial.</p><span class="soon">Conhecer solução</span></article>
+          <article class="product-card reveal"><span class="product-mark green">C</span><h3>Conecta</h3><p>Integração simples entre sistemas, serviços, canais e pessoas.</p><span class="soon">Conhecer solução</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ecosystem" id="ecossistema">
+      <video class="ecosystem-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="assets/video/orb9-ecosystem.mp4" type="video/mp4">
+      </video>
+      <div class="ecosystem-overlay" aria-hidden="true"></div>
+      <div class="container ecosystem-grid">
+        <div class="reveal">
+          <p class="eyebrow eyebrow-dark">Ecossistema ORB9</p>
+          <h2>Uma base compartilhada.<br>Múltiplas soluções.</h2>
+          <p>Engenharia, inteligência, governança e arquitetura conectam todo o portfólio ORB9 em uma plataforma preparada para evoluir.</p>
+        </div>
+        <div class="eco-diagram reveal" role="img" aria-label="Soluções conectadas à Plataforma ORB9">
+          <div class="eco-products"><span>WorkMind</span><span>NutriMind</span><span>MindAI</span><span>Cortex</span><span>CloudSupport</span><span>Conecta</span></div>
+          <div class="eco-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="eco-core"><small>PLATAFORMA</small><strong>ORB9</strong></div>
+          <div class="eco-base">Engenharia · Inteligência · Governança · Arquitetura</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="diferenciais">
+      <div class="container">
+        <div class="section-head reveal"><p class="eyebrow">Diferenciais</p><h2>O que sustenta cada solução ORB9.</h2></div>
+        <div class="feature-grid">
+          <article class="feature reveal"><i></i><h3>Tecnologia própria</h3><p>Domínio completo sobre cada produto e sua evolução.</p></article>
+          <article class="feature reveal"><i></i><h3>Inteligência Artificial</h3><p>IA aplicada com propósito e impacto mensurável.</p></article>
+          <article class="feature reveal"><i></i><h3>Arquitetura escalável</h3><p>Estruturas preparadas para crescer com estabilidade.</p></article>
+          <article class="feature reveal"><i></i><h3>Governança e segurança</h3><p>Confiança incorporada desde a concepção.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section partnerships" id="parcerias">
+      <div class="container">
+        <div class="partnership-intro">
+          <div class="reveal">
+            <p class="eyebrow">Modelos de parceria</p>
+            <h2>Cinco formas de construir com a ORB9.</h2>
+          </div>
+          <p class="reveal">Abordamos parcerias com uma visão de arquitetura aberta. Os modelos abaixo são pontos de partida, não um menu fixo — e as colaborações mais bem-sucedidas geralmente combinam mais de um deles.</p>
+        </div>
+
+        <div class="partnership-models">
+          <article class="partnership-model reveal">
+            <span class="model-number">01</span>
+            <h3>Integração tecnológica</h3>
+            <p>MindAI, NutriMind, WorkMind e Cortex Resolve compartilham uma mesma camada de inteligência. Uma única integração técnica pode alcançar múltiplos produtos, públicos e jornadas simultaneamente.</p>
+          </article>
+          <article class="partnership-model reveal">
+            <span class="model-number">02</span>
+            <h3>Cocriação de IA clínica</h3>
+            <p>Combinamos as capacidades do parceiro com a plataforma clinicamente governada da ORB9 e sua liderança médica para acelerar soluções de IA seguras, responsáveis e relevantes para a saúde.</p>
+          </article>
+          <article class="partnership-model reveal">
+            <span class="model-number">03</span>
+            <h3>Licenciamento white-label</h3>
+            <p>Plataformas ORB9 podem ser personalizadas e licenciadas para marcas clínicas, associações e instituições que desejam oferecer um produto digital sem desenvolver tecnologia internamente.</p>
+          </article>
+          <article class="partnership-model reveal">
+            <span class="model-number">04</span>
+            <h3>Acesso ao Brasil e à América Latina</h3>
+            <p>Relacionamentos com lideranças médicas, clientes corporativos e operações no setor público posicionam a ORB9 como canal de localização e distribuição para parceiros internacionais na região.</p>
+          </article>
+          <article class="partnership-model reveal">
+            <span class="model-number">05</span>
+            <h3>Saúde ocupacional</h3>
+            <p>As exigências brasileiras de gestão de riscos psicossociais ampliam a demanda por soluções responsáveis. O WorkMind permite construir ofertas conjuntas em saúde mental corporativa com rápida geração de valor.</p>
+          </article>
+        </div>
+
+        <aside class="partner-profile reveal">
+          <span>O que buscamos</span>
+          <p>Organizações com tecnologia complementar, credibilidade clínica ou alcance de distribuição; compromisso com uma inteligência artificial responsável e clinicamente governada; e interesse no mercado de saúde do Brasil e da América Latina.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato">
+      <div class="container contact-inner reveal">
+        <div><p class="eyebrow">Contato</p><h2>Inicie uma conversa estratégica.</h2></div>
+        <div><p>Converse com nosso time sobre como a ORB9 pode ampliar as capacidades digitais da sua organização.</p><div class="actions"><a class="button button-dark" href="mailto:suporte@orb9.com">Falar com a ORB9</a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div><a class="footer-logo" href="#home" aria-label="ORB9 — Voltar ao início"><img src="assets/images/orb9-logo-social.png" alt="ORB9" width="1678" height="734"></a><p>Inteligência aplicada para transformar o presente.</p></div>
+        <nav aria-label="Links do rodapé"><a href="sobre/">Sobre</a><a href="#produtos">Produtos</a><a href="#contato">Contato</a></nav>
+        <div class="footer-contact"><a href="mailto:suporte@orb9.com">suporte@orb9.com</a><a href="https://www.linkedin.com/company/orb9" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year">2026</span> ORB9. Todos os direitos reservados.</span></div>
+    </div>
+  </footer>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
