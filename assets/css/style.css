@@ -164,13 +164,19 @@ body{overflow-x:hidden}
 .about-hero .hero-content>p:last-child{max-width:700px;margin:0;color:var(--gray-500);font-size:clamp(1.05rem,1.7vw,1.25rem)}
 .about-orbits{position:relative;width:min(100%,430px);aspect-ratio:1;margin-inline:auto}
 .about-orbit{position:absolute;border:1px solid #cfd3cf;border-radius:50%}
-.about-orbit-one{inset:4%;transform:rotate(-15deg)}
-.about-orbit-two{inset:20% 2%;border-color:rgba(196,239,1,.9);transform:rotate(35deg)}
-.about-orbit-three{inset:31% 13%;border-style:dashed;transform:rotate(70deg)}
-.about-orbit-core{position:absolute;inset:36%;display:grid;place-items:center;border-radius:50%;background:#050505;box-shadow:11px 11px 0 var(--green);overflow:hidden}
+.about-orbit-one{inset:4%;animation:about-spin-one 68s linear infinite}
+.about-orbit-two{inset:20% 2%;border-color:rgba(196,239,1,.9);animation:about-spin-two 52s linear infinite reverse}
+.about-orbit-three{inset:31% 13%;border-style:dashed;animation:about-spin-three 42s linear infinite}
+.about-orbit-core{position:absolute;z-index:3;inset:36%;display:grid;place-items:center;border-radius:50%;background:#050505;box-shadow:11px 11px 0 var(--green);overflow:hidden}
 .about-orbit-core img{width:118%;max-width:none;height:auto}
-.about-orbits>i{position:absolute;width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:var(--gray-900);box-shadow:0 0 0 1px #bcc1bc}
-.about-orbits>i:nth-of-type(1){top:3%;left:48%}.about-orbits>i:nth-of-type(2){top:49%;right:1%}.about-orbits>i:nth-of-type(3){bottom:9%;left:18%;background:var(--green)}.about-orbits>i:nth-of-type(4){top:30%;left:13%}
+.about-node-ring{position:absolute;z-index:2;inset:0;pointer-events:none;animation:orb-spin var(--orbit-duration) linear infinite}
+.about-node-ring i{position:absolute;width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:var(--gray-900);box-shadow:0 0 0 1px #bcc1bc}
+.about-node-ring-one{--orbit-duration:64s}.about-node-ring-two{--orbit-duration:49s;animation-direction:reverse}.about-node-ring-three{--orbit-duration:57s}.about-node-ring-four{--orbit-duration:44s;animation-direction:reverse}
+.about-node-ring-one i{top:3%;left:48%}.about-node-ring-two i{top:49%;right:1%}.about-node-ring-three i{bottom:9%;left:18%;background:var(--green)}.about-node-ring-four i{top:30%;left:13%}
+@keyframes about-spin-one{from{transform:rotate(-15deg)}to{transform:rotate(345deg)}}
+@keyframes about-spin-two{from{transform:rotate(35deg)}to{transform:rotate(395deg)}}
+@keyframes about-spin-three{from{transform:rotate(70deg)}to{transform:rotate(430deg)}}
+
 .company-story{background:var(--gray-50)}
 .story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(4rem,9vw,8rem);align-items:start}
 .story-heading{position:sticky;top:120px}
@@ -267,4 +273,4 @@ body{overflow-x:hidden}
   .person-card:hover .person-photo{transform:scale(1.012);filter:saturate(1.03)}
   .trust-card:hover{background:#0d0f0d;border-color:#414541}
 }
-@media(prefers-reduced-motion:reduce){.about-orbits{transform:none!important}.capability-card,.capability-card::after,.purpose-card,.person-card,.person-photo,.trust-card{transition:none!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.about-orbits{transform:none!important}.about-orbit,.about-node-ring{animation:none!important}.capability-card,.capability-card::after,.purpose-card,.person-card,.person-photo,.trust-card{transition:none!important;transform:none!important}}
