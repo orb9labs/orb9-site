@@ -6,7 +6,11 @@ const files = {
   "/sobre": ["sobre/index.html", "text/html; charset=utf-8", false],
   "/sobre/": ["sobre/index.html", "text/html; charset=utf-8", false],
   "/sobre/index.html": ["sobre/index.html", "text/html; charset=utf-8", false],
+  "/produtos": ["produtos/index.html", "text/html; charset=utf-8", false],
+  "/produtos/": ["produtos/index.html", "text/html; charset=utf-8", false],
+  "/produtos/index.html": ["produtos/index.html", "text/html; charset=utf-8", false],
   "/assets/css/style.css": ["assets/css/style.css", "text/css; charset=utf-8", false],
+  "/assets/css/products.css": ["assets/css/products.css", "text/css; charset=utf-8", false],
   "/assets/js/script.js": ["assets/js/script.js", "text/javascript; charset=utf-8", false],
   "/assets/images/orb9-logo-social.png": ["assets/images/orb9-logo-social.png", "image/png", true],
   "/assets/images/orb9-symbol.png": ["assets/images/orb9-symbol.png", "image/png", true],
@@ -14,7 +18,6 @@ const files = {
   "/assets/images/orb9-favicon.png": ["assets/images/orb9-favicon.png", "image/png", true],
   "/assets/images/anderson-gobbi.jpeg": ["assets/images/anderson-gobbi.jpeg", "image/jpeg", true],
   "/assets/images/edson-gandra.png": ["assets/images/edson-gandra.png", "image/png", true],
-  "/assets/images/antonio-geraldo.png": ["assets/images/antonio-geraldo.png", "image/png", true],
   "/assets/video/orb9-ecosystem.mp4": ["assets/video/orb9-ecosystem.mp4", "video/mp4", true],
 };
 
